@@ -1,3 +1,49 @@
-<p>
-  inicio works!
-</p>
+<div class="container">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="myCarousel" data-slide-to="0" [class]="active1" (click)="cambiar(1)"></li>
+      <li data-target="myCarousel" data-slide-to="1" [class]="active2" (click)="cambiar(2)"></li>
+      <li data-target="myCarousel" data-slide-to="2" [class]="active3" (click)="cambiar(3)"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+
+      <div [class]="item1">
+        <img src="assets/inicio/p1.png" width="300" height="300" alt="Los Angeles" style="width:100%;">
+        <div class="carousel-caption">
+        </div>
+      </div>
+
+      <div [class]="item2">
+        <img src="assets/inicio/p2.png" width="300" height="300" alt="Chicago" style="width:100%;">
+        <div class="carousel-caption">
+        </div>
+      </div>
+
+      <div [class]="item3">
+        <img src="assets/inicio/p3.png" width="300" height="300" alt="New York" style="width:100%;">
+        <div class="carousel-caption">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" (click)="anterior()">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+
+    </a>
+    <a class="right carousel-control" (click)="posterior()">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+  </div>
+</div>
+<div class="container">
+  <div class="jumbotron">
+    <h2>Remiseria Humberto</h2>
+    <p>PEDÍ TU REMÍS ONLINE!</p>
+    Cotizá Tu Viaje Online De Forma Simple y Rápida!
+  </div>
+</div>

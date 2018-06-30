@@ -1,3 +1,25 @@
-<p>
-  menu works!
-</p>
+<nav class="navbar navbar-default navbar-fixed-top" *ngIf="Comprobar()===0">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a routerLink="/inicio" routerLinkActive="active">Inicio</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a routerLink="/registro" routerLinkActive="active"><span class="glyphicon glyphicon-user"></span> Registrarse</a></li>
+      <li><a routerLink="/login" routerLinkActive="active"><span class="glyphicon glyphicon-log-in"></span> Iniciar sesión</a></li>
+      <li><a style="color:white">Sin usuario</a></li>
+  </ul>
+</div>
+</nav>
+<nav class="navbar navbar-default navbar-fixed-top" *ngIf="Comprobar()===1">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li><a routerLink="/inicio" routerLinkActive="active">Inicio</a></li>
+      <li><a routerLink="/usuarios" routerLinkActive="active">Usuarios</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a [routerLink]="[]" (click)="Salir()" routerLinkActive="active">Cerrar sesión</a></li>
+     <li><a style="color:white">{{ObtenerUsuario()}}</a></li>
+  </ul>
+</div>
+</nav>
+
