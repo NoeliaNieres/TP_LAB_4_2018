@@ -2,7 +2,6 @@ import { Component, OnInit,Input  } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Usuario } from '../../clases/usuario';
 import { UsuarioService } from '../../servicio/usuario.service';
-import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 @Component({
     selector: 'app-login',
@@ -30,11 +29,11 @@ export class LoginComponent{
             if ( data.token ) {
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('user', JSON.stringify(data.usuario));
-                this.router.navigateByUrl('/usuarios');
+                this.router.navigateByUrl('/inicio');
             }
         })
         .catch( e => {
-          console.info(e);
+          this.error = e;
         } );
     
 }

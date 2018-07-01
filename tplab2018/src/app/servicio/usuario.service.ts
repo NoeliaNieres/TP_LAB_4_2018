@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/observable/throw';
 //import { AuthHttp } from 'angular2-jwt';
+import { User } from '../clases/user';
 
 @Injectable()
 export class UsuarioService {
@@ -20,6 +21,9 @@ export class UsuarioService {
     return this.http.post(this.url + ruta, user).toPromise()
     .then( this.extractData )
     .catch( this.handleError );
+  }
+  public agregarPersona( url: string, usuario: User ) {
+    return this.http.post(this.url  + '/usuario' + url, usuario ).map((res: Response) => res.json());
   }
   private extractData(res: Response) {
     const body = res.json();
