@@ -22,4 +22,42 @@
   </ul>
 </div>
 </nav>
+<nav class="navbar navbar-default navbar-fixed-top" *ngIf="Comprobar()===2">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li><a routerLink="/inicio" routerLinkActive="active">Inicio</a></li>
+        <li><a routerLink="/usuarios" routerLinkActive="active">Usuarios</a></li>
+        <li><a routerLink="/viajes" routerLinkActive="active">Viajes</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a [routerLink]="[]" (click)="Salir()" routerLinkActive="active">Cerrar sesión</a></li>
+       <li><a style="color:white">{{ObtenerUsuario()}}</a></li>
+    </ul>
+  </div>
+  </nav>
+  <nav class="navbar navbar-default navbar-fixed-top" *ngIf="Comprobar()===3">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav">
+          <li><a routerLink="/inicio" routerLinkActive="active">Inicio</a></li>
+          <li><a routerLink="/usuarios" routerLinkActive="active">Usuarios</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a [routerLink]="[]" (click)="Salir()" routerLinkActive="active">Cerrar sesión</a></li>
+         <li><a style="color:white">{{ObtenerUsuario()}}</a></li>
+      </ul>
+    </div>
+    </nav>
+    <nav class="navbar navbar-default navbar-fixed-top" *ngIf="Comprobar()===4">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav">
+            <li><a routerLink="/inicio" routerLinkActive="active">Inicio</a></li>
+            <li><a routerLink="/viajes" routerLinkActive="active">Viajes</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a [routerLink]="[]" (click)="Salir()" routerLinkActive="active">Cerrar sesión</a></li>
+           <li><a style="color:white">{{ObtenerUsuario()}}</a></li>
+        </ul>
+      </div>
+      </nav>
+
 

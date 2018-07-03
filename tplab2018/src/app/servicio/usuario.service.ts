@@ -8,6 +8,7 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/observable/throw';
 //import { AuthHttp } from 'angular2-jwt';
 import { User } from '../clases/user';
+import { Viaje } from '../clases/viaje';
 
 @Injectable()
 export class UsuarioService {
@@ -25,11 +26,16 @@ export class UsuarioService {
   public agregarPersona( url: string, usuario: User ) {
     return this.http.post(this.url  + '/usuario' + url, usuario ).map((res: Response) => res.json());
   }
+  public enviarViaje(viaje: Viaje, ruta: string) {
+      console.log(viaje);
+      return this.http.post(this.url + ruta, {viaje}).toPromise()
+      .then( this.extractData )
+      .catch( this.handleError );
+  }
   private extractData(res: Response) {
     const body = res.json();
     return body || { };
   }
-
   private handleError (error: Response | any) {
     // In a real world app, you might use a remote logging infrastructure
     let errMsg: string;
