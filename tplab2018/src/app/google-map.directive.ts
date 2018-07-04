@@ -81,7 +81,7 @@ export class DirectionsMapDirective {
     });
 
   }
-
+  
   private getcomputeDistance(latLngA: any , latLngB: any ) {
     return (google.maps.geometry.spherical.computeDistanceBetween(latLngA, latLngB) / 1000).toFixed(2);
   }

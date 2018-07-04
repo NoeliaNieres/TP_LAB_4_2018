@@ -5,6 +5,7 @@ export class Viaje {
     public lng_d: any;
     public fechayhora: any;
     public tipo_pago: any;
+    public nivel: any;
     public token: any;
   
     constructor() { }

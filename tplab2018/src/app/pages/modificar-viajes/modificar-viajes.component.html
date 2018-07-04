@@ -1,0 +1,121 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div class="row text-uppercase">
+    <div class="col-md-12 bg-secondary rounded">
+        <h3 class="text-muted" >Lista de Viajes</h3>
+
+        <table class="table table-hover" align="center">
+            <th>Tipo</th>
+            <th>Fecha</th>
+            <th>Modo de pago</th>
+            <th>Modificar</th>
+            <tr *ngFor="let viaje of arrayViajes">
+                <td>
+                    <span *ngIf="viaje.nivel==0">Standard</span>
+                    <span *ngIf="viaje.nivel==1">Confort</span>
+                    <span *ngIf="viaje.nivel==2">Premium</span>
+                </td>
+                <td>{{viaje.fechayhora | date:'dd/MM/yyyy HH:mm'}}</td>
+                <td>
+                    <span *ngIf="viaje.tipo_pago==0">Efectivo</span>
+                    <span *ngIf="viaje.tipo_pago==1">Débito</span>
+                    <span *ngIf="viaje.tipo_pago==2">Crédito</span>
+                </td>
+                <td>
+                    <button class="btn btn-success" onclick="document.getElementById('id').style.display='block'" (click)="cargarObjeto(viaje.id)">MODIFICAR</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div> 
+<!-- VER VIAJE POR ID Y MODIFICAR
+    ================================================== -->
+ <br><br><br>
+    
+<div class="w3-container">
+    <div id="id" class="w3-modal">
+        <div class="modal-content">
+           <div class="modal-header">
+            <div class="w3-center">
+                <span onclick="document.getElementById('id').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+            </div>
+                <h4><span class="glyphicon glyphicon-lock"></span>VIAJE</h4>
+           </div>
+<div class="modal-body">
+    <div class="center-screen">
+        <div class="card card-container">
+           <div class="form-group">
+            <form  (ngSubmit)="modificarViaje()" class="form-horizontal" #formViajes="ngForm" ngNativeValidate>
+                    <label style="margin: auto;">Cambiar direcciones </label>
+                    <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="mode" [value]="false" [(ngModel)]="viajeModificar">Si
+                        </label>   
+                    <label class="form-check-label"> 
+                        <input class="form-check-input" type="radio" name="mode" [value]="true" [(ngModel)]="viajeModificar" checked>No
+                    </label> 
+                <div [hidden]="viajeModificar">
+                        <label for="tipo_pago">Ingrese las direcciones</label>
+                    <input placeholder="Origen" autocorrect="off" autocapitalize="off" spellcheck="off"
+                        type="text" class="form-control" #pickupInput [formControl]="destinationInput" required>
+            
+                        <input placeholder="Destino" autocorrect="off" autocapitalize="off" spellcheck="off"
+                        type="text" class="form-control" #pickupOutput [formControl]="destinationOutput" required>         
+                
+                </div>   
+
+                <div [hidden]="!viajeModificar">
+                    <input type="text" class="form-control" id="psw" name="direOrigen" [(ngModel)]="direOrigen">
+                    <input type="text" class="form-control" id="psw" name="direDest" [(ngModel)]="direDest">
+                </div>
+                <label for="tipo_pago">Metodo de Pago:</label>
+                <select id="soflow-color" [(ngModel)]="datosMostrar.tipo_pago" name="tipo_pago" [ngModelOptions]="{standalone: true}" required>
+                    <option [ngValue]="undefined" selected>Seleccione modo de pago...</option>
+                    <option value="0">Efectivo</option>
+                    <option value="1">Débito</option>
+                    <option value="2">Crédito</option>
+                </select>
+                <br>
+                <label for="fechayhora">Fecha:</label>
+                <input id="fechayhora" [(ngModel)]="datosMostrar.fechayhora" type="datetime-local" name="fechayhora"
+                min="startDate" [ngModelOptions]="{standalone: true}" required>
+                <br><br>
+                <div class="btn-group" data-toggle="buttons">  
+                <label class="btn btn-warning ">Standard
+                    <input name="nivel" type="radio" [(ngModel)]="datosMostrar.nivel" [value]="0" [checked]="datosMostrar.nivel==0" autocomplete="off" />
+                    <span class="glyphicon glyphicon-ok"></span>
+                </label>
+                <label class="btn btn-light">Confort
+                    <input name="nivel" type="radio" [(ngModel)]="datosMostrar.nivel" [value]="1" [checked]="datosMostrar.nivel==1" autocomplete="off" />
+                    <span class="glyphicon glyphicon-ok"></span>
+                </label>
+                <label class="btn btn-success">Premium
+                    <input name="nivel" type="radio" [(ngModel)]="datosMostrar.nivel" [value]="2" [checked]="datosMostrar.nivel==2" autocomplete="off" />
+                    <span class="glyphicon glyphicon-ok"></span>
+                </label>           
+                </div>      
+                <br><br> 
+                <div *ngIf="!viajeModificar">
+                <agm-map  [latitude]="latitude" [longitude]="longitude"> 
+                        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                        <agm-map-directions [origin]="origin" [destination]="destination"></agm-map-directions>
+                </agm-map> 
+            </div>
+                <div *ngIf="viajeModificar">
+                    <agm-map [latitude]="lat" [longitude]="lng">
+                        <agm-direction *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination"></agm-direction>
+                      </agm-map>
+                    
+                </div>
+                <br>
+                <button type="submit" style="font-size: 18px" class="btn btn-outline-secondary" name="guardar" value="Solicitar">Enviar</button>
+            </form>
+    </div>
+    <div *ngIf="viajeSolicitado" >
+        <p>su solicitud a sido enviada con exito.</p>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

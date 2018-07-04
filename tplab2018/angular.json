@@ -94,7 +94,7 @@
       }
     },
     "tplab2018-e2e": {
-      "root": "",
+      "root": "src",
       "sourceRoot": "e2e",
       "projectType": "application",
       "architect": {

@@ -1,0 +1,23 @@
+.table{
+    /*background:rgba(0,0,0,.7);*/
+    background: rgba(255,255,255,0.5);
+    width: 80%;
+    height: 20%;
+    overflow-x: hidden;
+    position: absolute;
+}
+.btn span.glyphicon {    			
+	opacity: 0;				
+}
+.btn.active span.glyphicon {				
+	opacity: 1;				
+}
+#map 
+{
+    height: 300px;
+    width: 100%;
+}
+.sebm-google-map-container {
+    height: 300px;
+    width: 100%;
+ }

@@ -1,4 +1,4 @@
-import { Component, NgModule, NgZone, OnInit, ViewChild, ElementRef, Directive, Input  } from '@angular/core';
+import { Component, NgModule, NgZone, OnInit, ViewChild, ElementRef, Directive, Input } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {  MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
@@ -6,7 +6,7 @@ import { DirectionsMapDirective } from '../../google-map.directive';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../servicio/usuario.service';
 import { Viaje } from '../../clases/viaje';
-//import {} from '@types/googlemaps';
+import {} from '@types/googlemaps';
 
 declare const  google: any;
 declare const  jQuery: any;
@@ -31,6 +31,7 @@ export class ViajesComponent implements OnInit {
     public startDate: any;
     public fechaViaje: any;
     public metodoPago: any;
+    public nivel: any;
     private origenLat: any;
     private origenLng: any;
     private destinoLat: any;
@@ -191,6 +192,7 @@ export class ViajesComponent implements OnInit {
         this.objViaje.lng_d = this.destinoLng;
         this.objViaje.tipo_pago = this.metodoPago;
         this.objViaje.fechayhora =  this.fechaViaje; // newDate;
+        this.objViaje.nivel = this.nivel;
         this.objViaje.token = localStorage.getItem('token');
 
         this.ws.enviarViaje(this.objViaje,'/viaje/')

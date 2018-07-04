@@ -23,7 +23,7 @@ export class LoginComponent{
   constructor(private router: Router,private ws: UsuarioService) {}
 
     public login() {
-      console.log(this.user);
+      //console.log(this.user);
       this.ws.login( this.user, '/usuario/' ).then( 
         data => {
             if ( data.token ) {

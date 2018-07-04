@@ -14,6 +14,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegistroComponent } from './pages/registro/registro.component';
 import { UsuarioAbmComponent } from './pages/usuario-abm/usuario-abm.component';
 import { ViajesComponent } from './pages/viajes/viajes.component';
+import { ModificarViajesComponent } from './pages/modificar-viajes/modificar-viajes.component';
 
 //SERVICIOS
 import { AuthService } from './servicio/auth.service';
@@ -24,6 +25,8 @@ import { VerificarJwtService } from './servicio/verificar-jwt.service';
 //GOOGLE MAPS
 import { AgmCoreModule} from '@agm/core';
 import { DirectionsMapDirective } from './google-map.directive';
+import { AgmDirectionModule} from 'agm-direction';
+
 
 const appRoutes: Routes = [
   { path: 'inicio',component: InicioComponent},
@@ -31,6 +34,7 @@ const appRoutes: Routes = [
   { path: 'registro', component: RegistroComponent},
   { path: 'usuarios', component: UsuarioAbmComponent, canActivate: [VerificarJwtService] },
   { path: 'viajes', component: ViajesComponent, canActivate: [VerificarJwtService] },
+  { path: 'md-viajes', component: ModificarViajesComponent, canActivate: [VerificarJwtService] },
   { path: '',   redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: InicioComponent }
 ];
@@ -44,7 +48,8 @@ const appRoutes: Routes = [
     RegistroComponent,
     UsuarioAbmComponent,
     ViajesComponent,
-    DirectionsMapDirective
+    DirectionsMapDirective,
+    ModificarViajesComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -57,6 +62,7 @@ const appRoutes: Routes = [
     HttpModule,
     JwtModule,
     ReactiveFormsModule,
+    AgmDirectionModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [AuthService,UsuarioService,VerificarJwtService],

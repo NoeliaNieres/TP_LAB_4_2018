@@ -18,7 +18,7 @@ export class UsuarioService {
   constructor(public http: Http) { }
 
   login(user: Object, ruta: string) {
-    console.log(user);
+    //console.log(user);
     return this.http.post(this.url + ruta, user).toPromise()
     .then( this.extractData )
     .catch( this.handleError );
@@ -32,9 +32,31 @@ export class UsuarioService {
       .then( this.extractData )
       .catch( this.handleError );
   }
+  public traerViajes() {
+    return this.http.get( this.url  + '/viaje/').toPromise()
+    .then( this.extractData )
+    .catch( this.handleError );
+  }
+  public traerUnViajeId(id: number) {
+    return this.http.get( this.url  + '/viaje/'+ id).map((response: Response) => response.json());
+  }
   private extractData(res: Response) {
     const body = res.json();
     return body || { };
+  }
+  public getDireccion(lat, lng)
+  {
+    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng)
+    .toPromise()
+    .then( this.extractData )
+    .catch( this.handleError );
+  }
+  public getlatlng(address){
+
+    return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + address)
+    .toPromise()
+    .then( this.extractData )
+    .catch( this.handleError );
   }
   private handleError (error: Response | any) {
     // In a real world app, you might use a remote logging infrastructure
