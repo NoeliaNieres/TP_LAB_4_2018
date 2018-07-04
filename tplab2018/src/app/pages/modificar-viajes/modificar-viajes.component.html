@@ -34,16 +34,19 @@
     
 <div class="w3-container">
     <div id="id" class="w3-modal">
-        <div class="modal-content">
+        <div class="modal-content center-screen">
            <div class="modal-header">
             <div class="w3-center">
                 <span onclick="document.getElementById('id').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
             </div>
-                <h4><span class="glyphicon glyphicon-lock"></span>VIAJE</h4>
+        
            </div>
 <div class="modal-body">
-    <div class="center-screen">
+    <div>
         <div class="card card-container">
+                <h2 class="form-check-label">
+                        MODIFICAR VIAJE
+                </h2>   
            <div class="form-group">
             <form  (ngSubmit)="modificarViaje()" class="form-horizontal" #formViajes="ngForm" ngNativeValidate>
                     <label style="margin: auto;">Cambiar direcciones </label>
@@ -79,20 +82,12 @@
                 <input id="fechayhora" [(ngModel)]="datosMostrar.fechayhora" type="datetime-local" name="fechayhora"
                 min="startDate" [ngModelOptions]="{standalone: true}" required>
                 <br><br>
-                <div class="btn-group" data-toggle="buttons">  
-                <label class="btn btn-warning ">Standard
-                    <input name="nivel" type="radio" [(ngModel)]="datosMostrar.nivel" [value]="0" [checked]="datosMostrar.nivel==0" autocomplete="off" />
-                    <span class="glyphicon glyphicon-ok"></span>
-                </label>
-                <label class="btn btn-light">Confort
-                    <input name="nivel" type="radio" [(ngModel)]="datosMostrar.nivel" [value]="1" [checked]="datosMostrar.nivel==1" autocomplete="off" />
-                    <span class="glyphicon glyphicon-ok"></span>
-                </label>
-                <label class="btn btn-success">Premium
-                    <input name="nivel" type="radio" [(ngModel)]="datosMostrar.nivel" [value]="2" [checked]="datosMostrar.nivel==2" autocomplete="off" />
-                    <span class="glyphicon glyphicon-ok"></span>
-                </label>           
-                </div>      
+                <label for="tipo_pago">Comodidad</label>
+                <select id="soflow-color" [(ngModel)]="datosMostrar.nivel" name="nivel" [ngModelOptions]="{standalone: true}" required>
+                    <option value="0">Standard</option>
+                    <option value="1">Confort</option>
+                    <option value="2">Premium</option>
+                </select>
                 <br><br> 
                 <div *ngIf="!viajeModificar">
                 <agm-map  [latitude]="latitude" [longitude]="longitude"> 

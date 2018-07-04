@@ -36,7 +36,7 @@ export class ModificarViajesComponent implements OnInit {
     public startDate: any;
     public fechaViaje: any;
     public metodoPago: any;
-    public nivel: [0, 1, 2];
+    public nivel:any;
     private origenLat: any;
     private origenLng: any;
     private destinoLat: any;
@@ -49,7 +49,10 @@ export class ModificarViajesComponent implements OnInit {
     public direDest;
     //Get Directions
     public dir:any;
-
+    selectedEntry;
+    onSelectionChange(entry) {
+        this.selectedEntry = entry;
+    }
     @ViewChild('pickupInput') pickupInputElementRef: ElementRef;
 
     @ViewChild('pickupOutput') pickupOutputElementRef: ElementRef;
