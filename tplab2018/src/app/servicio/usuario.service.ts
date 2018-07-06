@@ -26,6 +26,8 @@ export class UsuarioService {
   public agregarPersona( url: string, usuario: User ) {
     return this.http.post(this.url  + '/usuario' + url, usuario ).map((res: Response) => res.json());
   }
+  //**************ACCIONES EN VIAJES**********************************////
+
   public enviarViaje(viaje: Viaje, ruta: string) {
       console.log(viaje);
       return this.http.post(this.url + ruta, {viaje}).toPromise()
@@ -37,9 +39,24 @@ export class UsuarioService {
     .then( this.extractData )
     .catch( this.handleError );
   }
+  public modViaje(viaje: Object, ruta: string) {
+    // console.log(viaje);
+    return this.http.post(this.url + ruta, {viaje})
+    .toPromise()
+    .then( this.extractData )
+    .catch( this.handleError );
+  }
   public traerUnViajeId(id: number) {
     return this.http.get( this.url  + '/viaje/'+ id).map((response: Response) => response.json());
   }
+  public borrarViaje(viaje: Object, ruta: string) {
+    // console.log(viaje);
+    return this.http.post(this.url + ruta, {viaje})
+    .toPromise()
+    .then( this.extractData )
+    .catch( this.handleError );
+  }
+  //**************************************************////
   private extractData(res: Response) {
     const body = res.json();
     return body || { };

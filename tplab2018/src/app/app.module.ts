@@ -26,6 +26,7 @@ import { VerificarJwtService } from './servicio/verificar-jwt.service';
 import { AgmCoreModule} from '@agm/core';
 import { DirectionsMapDirective } from './google-map.directive';
 import { AgmDirectionModule} from 'agm-direction';
+import { EncuestaComponent } from './encuesta/encuesta.component';
 
 
 const appRoutes: Routes = [
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
     UsuarioAbmComponent,
     ViajesComponent,
     DirectionsMapDirective,
-    ModificarViajesComponent
+    ModificarViajesComponent,
+    EncuestaComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

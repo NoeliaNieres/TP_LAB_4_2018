@@ -20,20 +20,11 @@
             <input id="fechaViaje" [(ngModel)]="fechaViaje" type="datetime-local" 
             min="startDate" [ngModelOptions]="{standalone: true}" required>
             <br><br>
-            <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-warning active">Standard
-                <input type="radio" name="nivel" value="0" id="option1" [(ngModel)]="nivel" autocomplete="off" chacked>
-                <span class="glyphicon glyphicon-ok"></span>
-            </label>
-            <label class="btn btn-light">Confort
-                <input type="radio" name="nivel" value="1" id="option2" [(ngModel)]="nivel" autocomplete="off">
-                <span class="glyphicon glyphicon-ok"></span>
-            </label>
-            <label class="btn btn-success">Premium
-                <input type="radio" name="nivel" value="2" id="option3" [(ngModel)]="nivel" autocomplete="off">
-                <span class="glyphicon glyphicon-ok"></span>
-            </label>           
-            </div>      
+            <div class="form-control">
+                <input type="radio" name="nivel" [(ngModel)]="nivel" (click)="nivel='0'" value="0">Standard
+                <input type="radio" name="nivel" [(ngModel)]="nivel" (click)="nivel='1'" value="1">Confort
+                <input type="radio" name="nivel" [(ngModel)]="nivel" (click)="nivel='2'" value="2">Premium
+            </div> 
             <br><br>  
             <agm-map [latitude]="latitude" [longitude]="longitude" >
                 <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>

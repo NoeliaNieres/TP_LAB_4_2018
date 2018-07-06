@@ -75,7 +75,8 @@ export class ModificarViajesComponent implements OnInit {
 
   ngOnInit() {
     this.buscarTodos();
-    
+  
+    this.viajeSolicitado = false;
     this.mostrarLista = true;
 
     this.destinationInput = new FormControl();
@@ -170,7 +171,7 @@ buscarTodos() {
       });
 }
 cargarObjeto($id){
-
+  this.viajeSolicitado = false;
   this.service.traerUnViajeId($id).subscribe( 
     data => { 
       this.mostrarLista = true; 
@@ -182,11 +183,42 @@ cargarObjeto($id){
     },error => console.log(error)
   )
 }
+eliminarObjeto($viaje)
+{
+  this.service.borrarViaje($viaje,'/viaje/borrar/')
+    .then( data => {
+      this.viajeSolicitado = true;
+      this.buscarTodos();
+    })
+    .catch( e => {
+      console.log(e);
+    } );
+}
 public getDirection(){
   this.dir = {
     origin: { lat: this.datosMostrar.lat_o, lng:this.datosMostrar.lng_o },
     destination: { lat: this.datosMostrar.lat_d, lng:this.datosMostrar.lng_d  }
   }
+}
+public modificarViaje(){
+
+  if(this.viajeModificar === false){
+    this.datosMostrar.lat_o = this.origenLat;
+    this.datosMostrar.lng_o = this.origenLng;
+    this.datosMostrar.lat_d = this.destinoLat;
+    this.datosMostrar.lng_d = this.destinoLng;
+    console.log("modifico direcciones");
+  }
+
+  this.service.modViaje(this.datosMostrar,'/viaje/modificar/')
+  .then( data => {
+      this.viajeSolicitado = true;
+      this.buscarTodos();
+ })
+ .catch( e => {
+     console.log(e);
+ } );
+ this.viajeModificar = true;
 }
 /*DibujarRuta(){
     this.gmapsApi.getNativeMap().then(map =>{
