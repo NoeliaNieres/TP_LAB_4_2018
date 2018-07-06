@@ -15,6 +15,7 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { UsuarioAbmComponent } from './pages/usuario-abm/usuario-abm.component';
 import { ViajesComponent } from './pages/viajes/viajes.component';
 import { ModificarViajesComponent } from './pages/modificar-viajes/modificar-viajes.component';
+import { EncuestaComponent } from './pages/encuesta/encuesta.component';
 
 //SERVICIOS
 import { AuthService } from './servicio/auth.service';
@@ -26,7 +27,6 @@ import { VerificarJwtService } from './servicio/verificar-jwt.service';
 import { AgmCoreModule} from '@agm/core';
 import { DirectionsMapDirective } from './google-map.directive';
 import { AgmDirectionModule} from 'agm-direction';
-import { EncuestaComponent } from './encuesta/encuesta.component';
 
 
 const appRoutes: Routes = [
@@ -36,6 +36,7 @@ const appRoutes: Routes = [
   { path: 'usuarios', component: UsuarioAbmComponent, canActivate: [VerificarJwtService] },
   { path: 'viajes', component: ViajesComponent, canActivate: [VerificarJwtService] },
   { path: 'md-viajes', component: ModificarViajesComponent, canActivate: [VerificarJwtService] },
+  { path: 'encuesta', component: EncuestaComponent, canActivate: [VerificarJwtService] },
   { path: '',   redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: InicioComponent }
 ];

@@ -1,0 +1,115 @@
+<div *ngIf="Comprobar()===2">
+<div class="encuesta">
+  <div class="form-group">
+      <form *ngIf="!encuestaCargada"  (ngSubmit)="cargarEncuesta()" class="form-horizontal" #formTurno="ngForm" ngNativeValidate>
+          <label class="control-label" for="respuesta_8">¿Conocías Remiseria “Humberto”?</label>
+          <div class="">
+             Si <input type="checkbox" class=" " [checked]="respuesta_8" (change)="respuesta_8 = !respuesta_8" name="respuesta_8" />
+          </div>
+          <label class="control-label" for="respuesta_5"> ¿Cómo calificas la opción del servicio en efectivo?</label>
+          <div class="">
+              <select class="form-control bootstrap-select " [(ngModel)]="respuesta_5" name="respuesta_5" [ngModelOptions]="{standalone: true}" required>
+                  <option value="-1">Seleccione...</option>
+                  <option value="0">1 al 3</option>
+                  <option value="1">4 al 7</option>
+                  <option value="2">8-10</option>
+              </select>
+          </div>
+          <label class="control-label" for="respuesta_1">¿Por qué razón usted prefiere usar nuestro servicio en vez de taxi?</label>
+          <div class="">
+                <input type="radio" name="respuesta_1"  [(ngModel)]="respuesta_1" (click)="respuesta_1='1'" value="1">Seguridad
+                <br>
+                <input type="radio" name="respuesta_1" [(ngModel)]="respuesta_1" (click)="respuesta_1='2'" value="2">Comodidad
+                <br>
+                <input type="radio" name="respuesta_1" [(ngModel)]="respuesta_1" (click)="respuesta_1='3'" value="3">Siempre pueden llevarte al tu destino
+                <br>
+                <input type="radio" name="respuesta_1" [(ngModel)]="respuesta_1" (click)="respuesta_1=4" value="4">Es más rapido
+                <br>
+                <input type="radio" name="respuesta_1"[(ngModel)]="respuesta_1" (click)="respuesta_1='5'"  value="5">Todas las anteriores
+          </div>
+          <label class="control-label" for="respuesta_6">¿Cómo califica el tiempo de llegada del servicio a su destino?</label>
+          <div class="">
+                  <input type="radio" name="respuesta_6" [(ngModel)]="respuesta_6" value="SI">Lento
+                  <input type="radio" name="respuesta_6" [(ngModel)]="respuesta_6" value="NO">Rápido  
+          </div>
+          <label class="control-label" for="respuesta_2">En promedio, ¿Cuán seguro considera el servicio en la ciudad?</label>
+          <div class="">
+                <input type="radio" name="respuesta_2" [(ngModel)]="respuesta_2" (click)="respuesta_2=1"  value="1">1
+                <input type="radio" name="respuesta_2" [(ngModel)]="respuesta_2" (click)="respuesta_2=2" value="2">2
+                <input type="radio" name="respuesta_2" [(ngModel)]="respuesta_2" (click)="respuesta_2=3" value="3">3
+          </div>
+          <label class="control-label" for="respuesta_3"> ¿Cómo califica la atención que brindan los conductores?</label>
+          <div class="">
+                <input type="radio" name="respuesta_3" [(ngModel)]="respuesta_3" (click)="respuesta_3=1" value="1">Excelente
+                <input type="radio" name="respuesta_3" [(ngModel)]="respuesta_3" (click)="respuesta_3=2" value="2">Muy buena
+                <input type="radio" name="respuesta_3" [(ngModel)]="respuesta_3" (click)="respuesta_3=3" value="3">Buena
+                <input type="radio" name="respuesta_3" [(ngModel)]="respuesta_3" (click)="respuesta_3=4" value="4">Mala
+                <input type="radio" name="respuesta_3" [(ngModel)]="respuesta_3" (click)="respuesta_3=5" value="5">Muy mala
+          </div>
+
+          <label class="control-label" for="respuesta_4">En general, ¿cumplió con sus expectativas?</label>
+          <div class="">
+                <input id="respuesta_4" class="form-control" [(ngModel)]="respuesta_4" name="respuesta_4" autocomplete="off" required>
+          </div>
+          <label class="control-label" for="respuesta_7">¿Recomendaria la aplicacion a algún conocido?:</label>
+          <div class="">
+              <input type="radio" name="respuesta_7"  [(ngModel)]="respuesta_7" value="SI">Si
+              <br>
+              <input type="radio" name="respuesta_7" [(ngModel)]="respuesta_7"  value="NO">No
+              <br>
+              <input type="radio" name="respuesta_7" [(ngModel)]="respuesta_7" value="NI">Tal vez
+          </div>
+          <button type="submit" class="btn bg-primary" name="btnEncuesta" value="encuesta">Cargar Encuesta</button>
+      </form>
+  </div>
+
+  <div *ngIf="encuestaCargada" >
+      <p>su solicitud a sido enviada con exito.</p>
+  </div>
+</div>
+</div>
+<!--*****************ADMINISTRADOR********************************** -->
+<div *ngIf="Comprobar()===1">
+<div class="main"> 
+    <h4>
+      <span>
+        <i class="fa fa-bar-chart-o"></i></span>Estadisticas
+    </h4>
+    <div>
+      <h5>
+        <em>Clientes</em>
+      </h5>
+      <strong>¿Recomendaria la aplicacion a algún conocido?</strong>
+      <span class="pull-right">75%</span>
+      <div class="progress progress-striped active">
+        <div class="progress-bar" style="width: 75%;"></div>
+      </div>
+      <strong>¿Cómo calificas la opción del servicio en efectivo?</strong>
+      <span class="pull-right">45%</span>
+      <div class="progress progress-striped active">
+        <div class="progress-bar" style="width: 45%;"></div>
+      </div>
+      <strong>¿Por qué razón usted prefiere usar nuestro servicio en vez de taxi?</strong>
+      <span class="pull-right">10%</span>
+      <div class="progress progress-striped active">
+        <div class="progress-bar" style="width: 10%;"></div>
+      </div>
+      <strong>¿Cómo califica el tiempo de llegada del servicio a su destino?</strong>
+      <span class="pull-right">5%</span>
+      <div class="progress progress-striped active">
+        <div class="progress-bar" style="width: 5%;"></div>
+      </div>
+      <strong>¿Cómo califica la atención que brindan los conductores?</strong>
+      <span class="pull-right">60%</span>
+      <div class="progress progress-striped active">
+        <div class="progress-bar" style="width: 60%;"></div>
+      </div>
+      <strong>En promedio, ¿Cuán seguro considera el servicio en la ciudad? (Considere UNO ausencia seguridad, TRES muy seguro)</strong>
+      <span class="pull-right">20%</span>
+      <div class="progress progress-striped active">
+        <div class="progress-bar" style="width: 15%;"></div>
+      </div>
+      
+    </div>
+  </div>
+</div>

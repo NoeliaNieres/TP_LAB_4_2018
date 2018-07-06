@@ -198,11 +198,7 @@ export class ViajesComponent implements OnInit {
         this.ws.enviarViaje(this.objViaje,'/viaje/')
         .then( data => {
             this.viajeSolicitado = true;
-            this.router.navigateByUrl('/inicio');
-           /*
-             hacer la logica para que si no existe el mail.
-             Vaya a registrarase.
-           */
+            this.router.navigateByUrl('/encuesta');
        })
        .catch( e => {
            console.log(e);

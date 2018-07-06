@@ -56,7 +56,13 @@ export class UsuarioService {
     .then( this.extractData )
     .catch( this.handleError );
   }
-  //**************************************************////
+  //******************************************************************////
+  //**************ACCIONES EN VIAJES**********************************////
+  public postEncuesta(objeto: Object, ruta: string) {
+    return this.http.post(this.url  + ruta, objeto )
+    .map((res: Response) => res.json());
+  }
+   //******************************************************************////
   private extractData(res: Response) {
     const body = res.json();
     return body || { };
