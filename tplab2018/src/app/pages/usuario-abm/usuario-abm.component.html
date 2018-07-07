@@ -1,3 +1,148 @@
-<p>
-  usuario-abm works!
-</p>
+<br><br><br><br>
+<div id="outer">
+    <div class="inner"> <button (click)="verLista= !verLista" class="login100-form-btn">Ver Lista</button></div>
+      <div class="inner"><button (click)="verAgre = !verAgre" class="form-btn">Nuevo Usuario</button></div>
+</div>
+<div class="center-screen" *ngIf="!verLista">
+  <div class="card card-container"> 
+      <form  autocomplete="off" method="POST" (ngSubmit)="submit()" #RegistroForm="ngForm" novalidate >
+          <label for="username">Nombre*</label>  
+          <div class="form-group">
+          <input type="text" class="form-control" [(ngModel)]="model.username" name="username" />
+          </div>
+          <div class="form-group">
+          <label for="email">Email*</label>
+          <input type="text" id="email" name="email" [(ngModel)]="model.email" #email="ngModel" class="form-control" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" />
+          <span *ngIf="!email.valid && email.touched">
+          <div [hidden]="!email.errors.required">
+            Obligatorio
+          </div>
+          <div [hidden]="!email.errors.minlength">
+            Minimo 3 caracteres
+          </div>
+          <div [hidden]="!email.errors.maxlength">
+           Maximo 20 caracteres
+          </div>
+          </span>
+          </div>
+          <div class="form-group">
+          <label for="username">Tipo*</label>  
+          <select class="form-control" [(ngModel)]="model.rol" [ngModelOptions]="{standalone: true}" required>
+          <option value="admin" >Admin</option>
+          <option value="remisero">Remisero</option>
+          <option value="encargado">Encargado</option>
+         </select>
+         </div>
+         <div class="form-group">
+         <label for="password">Contraseña*</label>
+         <input type="password" name="password" [(ngModel)]="model.password" id="password" #password="ngModel"  class="form-control" required minlength="3" maxlength="20" />
+         <span *ngIf="!password.valid && password.touched">La contraseña es obligatoria</span>
+         </div>
+  
+         <div class="form-group" *ngIf="!RegistroForm.valid">
+         <span>Comprueba los datos con * para poder guardar</span>
+         </div>
+         <div class="form-group">
+          <div class="col-sm-10 col-sm-offset-2">
+          <button type="submit" class="btn btn-primary button" [disabled]="!RegistroForm.valid">Guardar</button>
+          </div>
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+      </form>
+  </div>
+</div>
+<!-- ========================VER LISTA DE USUARIOS ================================================== -->
+    <div *ngIf="verLista">
+    <div class="row">
+      <div class="col-md-12 bg-secondary rounded text-uppercase">
+          <h4 class="text-muted" >Lista de Usuarios</h4>
+              <!-- LA TABLA YA TIENE ESTILOS PRECARGADOS EN EL CSS -->
+              <table class="table table-hover" align="center">
+                  <thead>
+                    <tr style="background-color: #bd59d4;">
+                      <th>Nombre</th>
+                      <th>Mail</th>
+                      <th>rol</th>
+                      <th>Borrar</th>
+                      <th>Modificar</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let usuario of arrayUsuarios">
+  
+                      <td>{{usuario.username}}</td>
+                      <td>{{usuario.email}}</td>
+                      <td>{{usuario.rol}}</td>
+                      <td>
+                          <div class="">
+                              <button class="btn sm-secondary" (click)="borrarUsuario(usuario)">Eliminar</button>
+                          </div>
+                      </td>
+                      <td>
+                          <div class="">
+                              <button class="btn sm-secondary" (click)="cargarObjeto(usuario.id)" >Modificar</button>
+                          </div>
+                      
+                      </td>
+                  </tr>
+                </tbody>
+              </table>
+      </div>
+  </div>
+</div>
+<!-- ========================VER USUARIO POR ID Y MODIFICAR ================================================== -->
+<div *ngIf="verLista">
+<div class="center-screen" *ngIf="modiPersona">
+  <div class="card card-container"> 
+      <div class="form-group">
+      <form *ngIf="!modificado" autocomplete="off" method="POST" (ngSubmit)="modificarPersona()" #ModificarForm="ngForm" novalidate >
+          <label for="username">Nombre*</label>  
+          <div class="form-group">
+          <input type="text" class="form-control" [(ngModel)]="datosMostrar.username" name="username" />
+          </div>
+          <div class="form-group">
+          <label for="email">Email*</label>
+          <input type="text" id="email" name="email" [(ngModel)]="datosMostrar.email" #email="ngModel" class="form-control" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" />
+          <span *ngIf="!email.valid && email.touched">
+          <div [hidden]="!email.errors.required">
+            Obligatorio
+          </div>
+          <div [hidden]="!email.errors.minlength">
+            Minimo 3 caracteres
+          </div>
+          <div [hidden]="!email.errors.maxlength">
+           Maximo 20 caracteres
+          </div>
+          </span>
+          </div>
+          <div class="form-group">
+          <label for="username">Tipo*</label>  
+          <select class="form-control" [(ngModel)]="datosMostrar.rol" [ngModelOptions]="{standalone: true}" required>
+          <option value="admin" >Admin</option>
+          <option value="remisero">Remisero</option>
+          <option value="encargado">Encargado</option>
+         </select>
+         </div>
+         <div class="form-group">
+         <label for="password">Contraseña*</label>
+         <input type="password" name="password" [(ngModel)]="datosMostrar.password" id="password" #password="ngModel"  class="form-control" required minlength="3" maxlength="20" />
+         <span *ngIf="!password.valid && password.touched">La contraseña es obligatoria</span>
+         </div>
+  
+         <div class="form-group" *ngIf="!ModificarForm.valid">
+         <span>Comprueba los datos con * para poder guardar</span>
+         </div>
+         <div class="form-group">
+          <div class="col-sm-10 col-sm-offset-2">
+          <button type="submit" class="btn btn-primary button" [disabled]="!ModificarForm.valid">Guardar</button>
+          </div>
+        </div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+      </form>
+  </div>
+  <div *ngIf="modificado" >
+    <p>Se modifico con exito!!</p>
+</div>
+</div>
+</div>
+</div>

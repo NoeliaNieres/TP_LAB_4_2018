@@ -6,7 +6,7 @@ import { DirectionsMapDirective } from '../../google-map.directive';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../servicio/usuario.service';
 import { Viaje } from '../../clases/viaje';
-//import {} from '@types/googlemaps';
+import {} from '@types/googlemaps';
 
 declare const  google: any;
 declare const  jQuery: any;

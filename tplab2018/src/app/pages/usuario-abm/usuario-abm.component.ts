@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { User } from '../../clases/user';
+import * as jwt_decode from 'jwt-decode';
+import { UsuarioService } from '../../servicio/usuario.service';
+import { Router }  from '@angular/router';
 
 @Component({
   selector: 'app-usuario-abm',
@@ -7,9 +11,93 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsuarioAbmComponent implements OnInit {
 
-  constructor() { }
+  public model = new User(0, '', '', '', '');
+  error = '';
+  @Input() arrayUsuarios: Array<any>;
+  datosMostrar: any = {};
+  public verLista: boolean;
+  public verAgre: boolean;
+  public modiPersona: boolean;
+  public modificado: boolean;
+  token: any;
+  tokenPayload: any;
 
-  ngOnInit() {
+  constructor(private ws: UsuarioService,private router: Router) { 
+    this.arrayUsuarios = new Array<any>();
   }
+  
+  ngOnInit() {
+    this.buscarTodos();
+    this.modificado = false;
+  }
+
+  submit() {
+    const registro = new User('',this.model.username,
+                              this.model.email,this.model.rol,
+                              this.model.password);
+    this.ws.agregarPersona('/agregar/', registro).subscribe(
+       data => {
+         this.verLista= true;
+        this.buscarTodos();
+       },
+       error => {
+        this.error = error;
+         console.error('Error guardando una usuario');
+      
+       }
+    );
+  }
+
+  buscarTodos() {
+    this.token = localStorage.getItem('token');
+    if (this.token !== null) {
+        this.tokenPayload = jwt_decode(this.token);
+        if ('encargado' === this.tokenPayload.data.rol) {
+
+            this.ws.traerPersonas('/usuario/roles/')
+            .then( data => {
+                this.arrayUsuarios = data;
+            })
+            .catch( error => { console.log(error); });
+        }
+
+    } else {
+        this.ws.traerPersonas('/usuario/').then( 
+          data => { 
+            this.arrayUsuarios = data; 
+          }).catch( 
+            error => {
+               console.log(error); 
+        });
+    }
+
+}
+public cargarObjeto($id){
+  this.modificado = false;
+  this.ws.traerUnPersonaeId($id).subscribe( 
+    data => { 
+      this.modiPersona = true; 
+      this.datosMostrar = data; 
+
+    },error => console.log(error)
+  )
+}
+public eliminarObjeto($user)
+{
+  this.ws.borrarUsuario('/borrar/',$user)
+    .subscribe( data => {
+      this.buscarTodos();
+    },error => console.log(error)
+  )
+}
+public modificarPersona(){
+  this.verLista = true;
+  this.ws.modificarUsuario('/modificar/',this.datosMostrar)
+  .subscribe( data => {
+      this.modificado = true;
+      this.buscarTodos();
+    },error => console.log(error)
+  )
+}
 
 }

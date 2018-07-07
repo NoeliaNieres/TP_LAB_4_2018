@@ -26,6 +26,27 @@ export class UsuarioService {
   public agregarPersona( url: string, usuario: User ) {
     return this.http.post(this.url  + '/usuario' + url, usuario ).map((res: Response) => res.json());
   }
+  public traerPersonas(ruta: string) {
+    return this.http.get(this.url + ruta)
+    .toPromise()
+    .then( this.extractData )
+    .catch( this.handleError );
+  }
+  public traerUnPersonaeId(id: number) {
+    return this.http.get( this.url  + '/usuario/'+ id).map((response: Response) => response.json());
+  }
+  public borrarUsuario( url: string, usuario: User ) {
+    return this.http
+    .post(this.url  + '/usuario' + url, usuario )
+    .map((res: Response) => res.json());
+  }
+
+  public modificarUsuario( url: string, usuario: User ) {
+    return this.http
+    .post( this.url + '/usuario' + url, usuario )
+    .map((res: Response) => res.json());
+
+  }
   //**************ACCIONES EN VIAJES**********************************////
 
   public enviarViaje(viaje: Viaje, ruta: string) {
@@ -57,7 +78,7 @@ export class UsuarioService {
     .catch( this.handleError );
   }
   //******************************************************************////
-  //**************ACCIONES EN VIAJES**********************************////
+  //**************ENCUESTA**********************************////
   public postEncuesta(objeto: Object, ruta: string) {
     return this.http.post(this.url  + ruta, objeto )
     .map((res: Response) => res.json());

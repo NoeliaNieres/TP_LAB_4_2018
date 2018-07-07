@@ -28,7 +28,6 @@ import { AgmCoreModule} from '@agm/core';
 import { DirectionsMapDirective } from './google-map.directive';
 import { AgmDirectionModule} from 'agm-direction';
 
-
 const appRoutes: Routes = [
   { path: 'inicio',component: InicioComponent},
   { path: 'login',component: LoginComponent},
