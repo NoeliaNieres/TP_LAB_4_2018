@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { UsuarioService } from '../../servicio/usuario.service';
 import { Viaje } from '../../clases/viaje';
 import {} from '@types/googlemaps';
+import { BsModalComponent } from 'ng2-bs3-modal';
 
 declare const  google: any;
 declare const  jQuery: any;
@@ -19,6 +20,8 @@ declare const  jQuery: any;
 })
 export class ModificarViajesComponent implements OnInit {
 
+    @ViewChild('modal')
+    modal: BsModalComponent;
     private mostrarLista: boolean;
     datosMostrar: any = {};
     direccionMostrar: any = {};
