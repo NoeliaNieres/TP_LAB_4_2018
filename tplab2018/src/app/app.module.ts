@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 //CSS
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BsModalModule } from 'ng2-bs3-modal';
 
 //PAGES
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { UsuarioAbmComponent } from './pages/usuario-abm/usuario-abm.component';
 import { ViajesComponent } from './pages/viajes/viajes.component';
 import { ModificarViajesComponent } from './pages/modificar-viajes/modificar-viajes.component';
 import { EncuestaComponent } from './pages/encuesta/encuesta.component';
+import { VehiculosComponent } from './pages/vehiculos/vehiculos.component';
 
 //SERVICIOS
 import { AuthService } from './servicio/auth.service';
@@ -28,6 +30,7 @@ import { AgmCoreModule} from '@agm/core';
 import { DirectionsMapDirective } from './google-map.directive';
 import { AgmDirectionModule} from 'agm-direction';
 
+
 const appRoutes: Routes = [
   { path: 'inicio',component: InicioComponent},
   { path: 'login',component: LoginComponent},
@@ -36,6 +39,7 @@ const appRoutes: Routes = [
   { path: 'viajes', component: ViajesComponent, canActivate: [VerificarJwtService] },
   { path: 'md-viajes', component: ModificarViajesComponent, canActivate: [VerificarJwtService] },
   { path: 'encuesta', component: EncuestaComponent, canActivate: [VerificarJwtService] },
+  { path: 'vehiculos', component: VehiculosComponent, canActivate: [VerificarJwtService] },
   { path: '',   redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: InicioComponent }
 ];
@@ -51,7 +55,8 @@ const appRoutes: Routes = [
     ViajesComponent,
     DirectionsMapDirective,
     ModificarViajesComponent,
-    EncuestaComponent
+    EncuestaComponent,
+    VehiculosComponent
   ],
   imports: [
     AgmCoreModule.forRoot({
@@ -65,6 +70,7 @@ const appRoutes: Routes = [
     JwtModule,
     ReactiveFormsModule,
     AgmDirectionModule,
+    BsModalModule,
     RouterModule.forRoot(appRoutes),
   ],
   providers: [AuthService,UsuarioService,VerificarJwtService],

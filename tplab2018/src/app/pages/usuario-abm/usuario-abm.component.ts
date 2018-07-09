@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, ViewChild } from '@angular/core';
 import { User } from '../../clases/user';
 import * as jwt_decode from 'jwt-decode';
 import { UsuarioService } from '../../servicio/usuario.service';
 import { Router }  from '@angular/router';
+import { BsModalComponent } from 'ng2-bs3-modal';
 
 @Component({
   selector: 'app-usuario-abm',
@@ -14,9 +15,10 @@ export class UsuarioAbmComponent implements OnInit {
   public model = new User(0, '', '', '', '');
   error = '';
   @Input() arrayUsuarios: Array<any>;
+  @ViewChild('modal')
+  modal: BsModalComponent;
   datosMostrar: any = {};
   public verLista: boolean;
-  public verAgre: boolean;
   public modiPersona: boolean;
   public modificado: boolean;
   token: any;
@@ -73,7 +75,7 @@ export class UsuarioAbmComponent implements OnInit {
 
 }
 public cargarObjeto($id){
-  this.modificado = false;
+  this.modal.dismiss();
   this.ws.traerUnPersonaeId($id).subscribe( 
     data => { 
       this.modiPersona = true; 

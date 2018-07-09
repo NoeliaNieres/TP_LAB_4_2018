@@ -1,7 +1,7 @@
 <br><br><br><br>
 <div id="outer">
-    <div class="inner"> <button (click)="verLista= !verLista" class="login100-form-btn">Ver Lista</button></div>
-      <div class="inner"><button (click)="verAgre = !verAgre" class="form-btn">Nuevo Usuario</button></div>
+      <div class="inner"><button (click)="verLista= !verLista" class="form-btn">Nuevo Usuario</button></div>
+      <div class="inner"><button class="login100-form-btn" (click)="modal.open()">Ver Lista</button></div>
 </div>
 <div class="center-screen" *ngIf="!verLista">
   <div class="card card-container"> 
@@ -52,47 +52,44 @@
   </div>
 </div>
 <!-- ========================VER LISTA DE USUARIOS ================================================== -->
-    <div *ngIf="verLista">
-    <div class="row">
-      <div class="col-md-12 bg-secondary rounded text-uppercase">
-          <h4 class="text-muted" >Lista de Usuarios</h4>
-              <!-- LA TABLA YA TIENE ESTILOS PRECARGADOS EN EL CSS -->
-              <table class="table table-hover" align="center">
-                  <thead>
-                    <tr style="background-color: #bd59d4;">
-                      <th>Nombre</th>
-                      <th>Mail</th>
-                      <th>rol</th>
-                      <th>Borrar</th>
-                      <th>Modificar</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let usuario of arrayUsuarios">
-  
-                      <td>{{usuario.username}}</td>
-                      <td>{{usuario.email}}</td>
-                      <td>{{usuario.rol}}</td>
-                      <td>
-                          <div class="">
-                              <button class="btn sm-secondary" (click)="borrarUsuario(usuario)">Eliminar</button>
-                          </div>
-                      </td>
-                      <td>
-                          <div class="">
-                              <button class="btn sm-secondary" (click)="cargarObjeto(usuario.id)" >Modificar</button>
-                          </div>
-                      
-                      </td>
-                  </tr>
-                </tbody>
-              </table>
-      </div>
-  </div>
-</div>
+
+<bs-modal #modal>
+    <bs-modal-header [showDismiss]="true">
+        <h4 class="modal-title">Lista de Usuarios</h4>
+    </bs-modal-header>
+    <bs-modal-body>
+        <table class="table rounded">
+              <tr style="background-color: #bd59d4;">
+                <th>Nombre</th>
+                <th>Mail</th>
+                <th>rol</th>
+                <th>Borrar</th>
+                <th>Modificar</th>
+            </tr>
+            <tr *ngFor="let usuario of arrayUsuarios">
+
+                <td>{{usuario.username}}</td>
+                <td>{{usuario.email}}</td>
+                <td>{{usuario.rol}}</td>
+                <td>
+                    <div class="">
+                        <button class="btn sm-secondary" (click)="eliminarObjeto(usuario)">Eliminar</button>
+                    </div>
+                </td>
+                <td>
+                    <div class="">
+                        <button class="btn sm-secondary" (click)="verLista= !verLista" (click)="cargarObjeto(usuario.id)" >Modificar</button>
+                    </div>
+                
+                </td>
+            </tr>
+        </table>
+    </bs-modal-body>
+</bs-modal>   
+
 <!-- ========================VER USUARIO POR ID Y MODIFICAR ================================================== -->
 <div *ngIf="verLista">
-<div class="center-screen" *ngIf="modiPersona">
+<div class="center-screen">
   <div class="card card-container"> 
       <div class="form-group">
       <form *ngIf="!modificado" autocomplete="off" method="POST" (ngSubmit)="modificarPersona()" #ModificarForm="ngForm" novalidate >
@@ -141,8 +138,8 @@
       </form>
   </div>
   <div *ngIf="modificado" >
-    <p>Se modifico con exito!!</p>
-</div>
+        <p>Se modificó con éxito!!</p>
+    </div>
 </div>
 </div>
 </div>

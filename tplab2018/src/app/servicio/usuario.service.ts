@@ -84,10 +84,23 @@ export class UsuarioService {
     .map((res: Response) => res.json());
   }
    //******************************************************************////
-  private extractData(res: Response) {
-    const body = res.json();
-    return body || { };
+   //**************SERVICIOS GENERALES**********************************////
+    /// cargar, modificar y eliminar
+   public enviarObj(objeto: Object, ruta: string) {
+    return this.http.post(this.url  + ruta, objeto )
+    .map((res: Response) => res.json());
   }
+  public traerObj(ruta: string) {
+    return this.http.get( this.url  + ruta).toPromise()
+    .then( this.extractData )
+    .catch( this.handleError );
+  }
+  public traerObjId(id: number, ruta: string) {
+    console.log(id);
+    return this.http.get( this.url  + ruta + id).map((response: Response) => response.json());
+  }
+   //******************************************************************////
+  
   public getDireccion(lat, lng)
   {
     return this.http.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng)
@@ -101,6 +114,10 @@ export class UsuarioService {
     .toPromise()
     .then( this.extractData )
     .catch( this.handleError );
+  }
+  private extractData(res: Response) {
+    const body = res.json();
+    return body || { };
   }
   private handleError (error: Response | any) {
     // In a real world app, you might use a remote logging infrastructure
