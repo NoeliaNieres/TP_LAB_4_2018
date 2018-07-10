@@ -7,6 +7,8 @@ export class Viaje {
     public tipo_pago: any;
     public nivel: any;
     public token: any;
+    public duracion: any;
+    public distancia: any;
   
     constructor() { }
   }

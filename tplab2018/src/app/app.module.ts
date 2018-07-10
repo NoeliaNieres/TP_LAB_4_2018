@@ -18,6 +18,7 @@ import { ViajesComponent } from './pages/viajes/viajes.component';
 import { ModificarViajesComponent } from './pages/modificar-viajes/modificar-viajes.component';
 import { EncuestaComponent } from './pages/encuesta/encuesta.component';
 import { VehiculosComponent } from './pages/vehiculos/vehiculos.component';
+import { ViajesPagosComponent } from './pages/viajes-pagos/viajes-pagos.component';
 
 //SERVICIOS
 import { AuthService } from './servicio/auth.service';
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
   { path: 'md-viajes', component: ModificarViajesComponent, canActivate: [VerificarJwtService] },
   { path: 'encuesta', component: EncuestaComponent, canActivate: [VerificarJwtService] },
   { path: 'vehiculos', component: VehiculosComponent, canActivate: [VerificarJwtService] },
+  { path: 'pagos', component: ViajesPagosComponent, canActivate: [VerificarJwtService] },
   { path: '',   redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: InicioComponent }
 ];
@@ -56,7 +58,8 @@ const appRoutes: Routes = [
     DirectionsMapDirective,
     ModificarViajesComponent,
     EncuestaComponent,
-    VehiculosComponent
+    VehiculosComponent,
+    ViajesPagosComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

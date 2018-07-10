@@ -127,16 +127,13 @@ export class ViajesComponent implements OnInit {
              // Update the directions
              this.vc.updateDirections();
              this.zoom = 12;
-             // this.getDistanceAndDuration();
+             //this.getDistanceAndDuration();
              if (this.vc.destination !== undefined ) {
                 this.origenLat = this.vc.origin.latitude;
                 this.origenLng = this.vc.origin.longitude;
                 this.destinoLat = this.vc.destination.latitude;
                 this.destinoLng = this.vc.destination.longitude;
              }
-
-             // this.estimatedTime = localStorage.getItem('duracion');
-             // this.estimatedTime = '1000 km';
            });
 
         });
@@ -193,6 +190,8 @@ export class ViajesComponent implements OnInit {
         this.objViaje.tipo_pago = this.metodoPago;
         this.objViaje.fechayhora =  this.fechaViaje; // newDate;
         this.objViaje.nivel = this.nivel;
+        this.objViaje.duracion = this.estimatedTime ;
+        this.objViaje.distancia = this.estimatedDistance;
         this.objViaje.token = localStorage.getItem('token');
 
         this.ws.enviarViaje(this.objViaje,'/viaje/')

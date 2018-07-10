@@ -46,21 +46,24 @@ export class LoginComponent{
   Cargar(num) {
       switch (num) {
           case '1':
+               this.user.email = 'cliente@gmail.com';
+               this.user.clave = '12345678a'
+               break;
+          case '2':
+               this.user.email = 'remisero@hotmail.com';
+               this.user.clave = '12345678a';
+               break;
+          case '3':
+               this.user.email = 'encargado@hotmail.com';
+               this.user.clave = '12345678a'
+               break;           
+          case '4':
               this.user.email = 'admin@gmail.com';
               this.user.clave = '12345678a';
               break;
-          case '2':
-              this.user.email = 'remisero1@gmail.com';
-              this.user.clave = '12345678a';
-              break;
-          case '3':
-              this.user.email = 'encargado1@gmail.com';
-              this.user.clave = '12345678a'
-              break;
-          case '4':
-              this.user.email = 'admin';
-              this.user.clave = 'admin'
-              break;
+         
+          
+         
       }
   }
   private handleSuccess(recaptchaSuccess: any) {

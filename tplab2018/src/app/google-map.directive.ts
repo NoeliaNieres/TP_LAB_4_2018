@@ -16,9 +16,6 @@ export class DirectionsMapDirective {
   @Input() estimatedTime: any;
   @Input() estimatedDistance: any;
 
-  duracion: string;
-  distancia: string;
-
   constructor (private gmapsApi: GoogleMapsAPIWrapper) {}
 
   updateDirections() {
@@ -61,19 +58,13 @@ export class DirectionsMapDirective {
                     me.directionsDisplay.setDirections(response);
                     map.setZoom(30);
 
-                    // console.log(me.getcomputeDistance (latLngA, latLngB));
+                    //console.log(me.getcomputeDistance (latLngA, latLngB));
                     const point = response.routes[ 0 ].legs[ 0 ];
                     me.estimatedTime = point.duration.text;
                     me.estimatedDistance = point.distance.text;
-                    // console.log(me.estimatedTime);
-                    // console.log( 'Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
-                    localStorage.setItem('duracion', null);
-                    localStorage.setItem('distancia', null);
-                    localStorage.setItem('estimado', null);
-                    localStorage.setItem('duracion', point.duration.text);
-                    localStorage.setItem('distancia', point.distance.text);
-                    localStorage.setItem('estimado', me.estimatedTime);
+                    //console.log( 'Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
 
+                    me.directionsDisplay.setPanel(document.getElementById('directionsList'));
                 } else {
                   console.log('Directions request failed due to ' + status);
                 }

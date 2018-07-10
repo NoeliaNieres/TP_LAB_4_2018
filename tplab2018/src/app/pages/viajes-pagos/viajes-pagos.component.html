@@ -1,0 +1,45 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<br><br><br>
+<div class="container" >
+	<div class="row" onfocus="true">
+		
+        <div class="col-md-12" style="background:white">
+        	<div class="table-responsive">
+              <table id="mytable" class="table table-bordred table-hover " >
+                <thead >
+                    <th>Fecha</th>
+                    <th>Usuario</th>
+                    <th>Pago</th>
+                    <th>Nivel</th>
+                    <th>Total</th>
+                    <th>Estado</th> 
+                </thead>
+    <tbody *ngFor="let item of arrayViajes" ><!--RECORRO EL ARRAY DE JSON DE PEIDOS DE FIREBASE!-->
+
+    <tr><!--VALIDO QUE SOLO MUESTRE LOS PEDIDOS DEL USUARIO LOGEADO!-->
+      
+      <td>{{item.fechayhora | date:'dd/MM/yyyy HH:mm'}}</td>
+      <td>{{item.usuario_id}}</td>
+      <td>
+          <span *ngIf="item.tipo_pago==0">Efectivo</span>
+          <span *ngIf="item.tipo_pago==1">Débito</span>
+          <span *ngIf="item.tipo_pago==2">Crédito</span>
+      </td>
+	 
+	<td>
+    <span *ngIf="item.nivel==0">Standard</span>
+    <span *ngIf="item.nivel==1">Confort</span>
+    <span *ngIf="item.nivel==2">Premium</span>
+</td>
+  <td>$ {{item.duracion * item.distancia}}</td>
+	<div *ngIf="item.estado=='0'"><td class="label label-warning" >Pendiente</td></div>
+	<div *ngIf="item.estado=='1'"><td class="label label-success">Pagado</td></div>
+    </tr>
+
+    </tbody>
+        
+</table>
+        </div>
+		</div>
+		</div>
+  </div>

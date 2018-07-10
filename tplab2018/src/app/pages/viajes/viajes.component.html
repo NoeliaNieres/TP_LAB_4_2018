@@ -8,6 +8,9 @@
 
             <input placeholder="Destino" autocorrect="off" autocapitalize="off" spellcheck="off"
             type="text" class="form-control" #pickupOutput [formControl]="destinationOutput" required>
+    
+            <div id="directionsList" class="panel panel-primary"></div>
+
             <label for="metodoPago">Metodo de Pago:</label>
             <select id="soflow-color" [(ngModel)]="metodoPago" [ngModelOptions]="{standalone: true}" required>
                 <option [ngValue]="undefined" selected>Seleccione modo de pago...</option>
@@ -26,10 +29,10 @@
                 <input type="radio" name="nivel" [(ngModel)]="nivel" (click)="nivel='2'" value="2">Premium
             </div> 
             <br><br>  
-            <!--   <agm-map [latitude]="latitude" [longitude]="longitude" >
+              <agm-map [latitude]="latitude" [longitude]="longitude" >
                 <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
                 <agm-map-directions [origin]="origin" [destination]="destination"></agm-map-directions>
-            </agm-map> -->
+            </agm-map> 
             <br>
             <button type="submit" style="font-size: 18px" class="btn btn-outline-secondary" name="guardar" value="Solicitar">Enviar</button>
         </form>
