@@ -56,15 +56,16 @@ export class DirectionsMapDirective {
                 if (status === 'OK') {
 
                     me.directionsDisplay.setDirections(response);
+                    
                     map.setZoom(30);
-
-                    //console.log(me.getcomputeDistance (latLngA, latLngB));
                     const point = response.routes[ 0 ].legs[ 0 ];
                     me.estimatedTime = point.duration.text;
                     me.estimatedDistance = point.distance.text;
                     //console.log( 'Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
-
+                    
                     me.directionsDisplay.setPanel(document.getElementById('directionsList'));
+                    me.computeTotalDistance(point);
+                    
                 } else {
                   console.log('Directions request failed due to ' + status);
                 }
@@ -75,5 +76,12 @@ export class DirectionsMapDirective {
   
   private getcomputeDistance(latLngA: any , latLngB: any ) {
     return (google.maps.geometry.spherical.computeDistanceBetween(latLngA, latLngB) / 1000).toFixed(2);
+  }
+  private computeTotalDistance(result) {
+    let inputFieldStart = document.getElementById('tiempo') as HTMLInputElement;
+    let inputFieldDestination = document.getElementById('distancia') as HTMLInputElement;
+    inputFieldStart.value = result.duration.text;
+    inputFieldDestination.value = result.distance.text;
+
   }
 }

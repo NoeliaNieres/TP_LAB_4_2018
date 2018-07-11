@@ -53,7 +53,7 @@
                 
                             <input placeholder="Destino" autocorrect="off" autocapitalize="off" spellcheck="off"
                             type="text" class="form-control" #pickupOutput [formControl]="destinationOutput" required>         
-                    
+                            <div id="directionsList" class="panel panel-primary"></div>
                     </div>   
     
                     <div [hidden]="!viajeModificar">

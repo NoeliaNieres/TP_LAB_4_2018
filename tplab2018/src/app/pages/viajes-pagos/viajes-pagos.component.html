@@ -1,6 +1,9 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <br><br><br>
 <div class="container" >
+        <button id="buttons" class="btn btn-primary btn-lg" (click)="Valor(0)"> <span class="glyphicon glyphicon-th"></span> Efectivo </button>
+        <button id="buttons" class="btn btn-success btn-lg" (click)="Valor(1)"><span class="glyphicon glyphicon-th"></span> Débito</button>
+        <button id="buttons" class="btn btn-danger btn-lg" (click)="Valor(2)"><span class="glyphicon glyphicon-th"></span> Crédito </button>
 	<div class="row" onfocus="true">
 		
         <div class="col-md-12" style="background:white">
@@ -14,9 +17,9 @@
                     <th>Total</th>
                     <th>Estado</th> 
                 </thead>
-    <tbody *ngFor="let item of arrayViajes" ><!--RECORRO EL ARRAY DE JSON DE PEIDOS DE FIREBASE!-->
+    <tbody *ngFor="let item of arrayViajes" >
 
-    <tr><!--VALIDO QUE SOLO MUESTRE LOS PEDIDOS DEL USUARIO LOGEADO!-->
+    <tr  *ngIf="item.tipo_pago == valor">
       
       <td>{{item.fechayhora | date:'dd/MM/yyyy HH:mm'}}</td>
       <td>{{item.usuario_id}}</td>
@@ -31,7 +34,7 @@
     <span *ngIf="item.nivel==1">Confort</span>
     <span *ngIf="item.nivel==2">Premium</span>
 </td>
-  <td>$ {{item.duracion * item.distancia}}</td>
+  <td> {{ item.usuario_id | pesos }}</td>
 	<div *ngIf="item.estado=='0'"><td class="label label-warning" >Pendiente</td></div>
 	<div *ngIf="item.estado=='1'"><td class="label label-success">Pagado</td></div>
     </tr>

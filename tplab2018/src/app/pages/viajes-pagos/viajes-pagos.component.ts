@@ -13,7 +13,7 @@ import { Viaje } from '../../clases/viaje';
 export class ViajesPagosComponent implements OnInit {
 
   public arrayViajes;
-
+  valor : number = 0;
 
   constructor(private service: UsuarioService) { 
     this.arrayViajes = new Array<any>();
@@ -22,7 +22,10 @@ export class ViajesPagosComponent implements OnInit {
   ngOnInit() {
     this.buscarTodos();
   }
+  Valor(numero){
 
+    this.valor= numero;
+  }
   buscarTodos() {
     this.service.traerViajes().then( 
       data => { 

@@ -1,4 +1,4 @@
-import { Component, NgModule, NgZone, OnInit, ViewChild, ElementRef, Directive, Input } from '@angular/core';
+import { Component, NgModule, NgZone, OnInit, ViewChild, ElementRef, Directive, Input ,} from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {  MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
@@ -23,6 +23,7 @@ export class ViajesComponent implements OnInit {
     public longitude: number;
     public destinationInput: FormControl;
     public destinationOutput: FormControl;
+    public tiempoOutput: FormControl;
     public zoom: number;
     public iconurl: string;
     public mapCustomStyles: any;
@@ -80,7 +81,6 @@ export class ViajesComponent implements OnInit {
         // create search FormControl
         this.destinationInput = new FormControl();
         this.destinationOutput = new FormControl();
-
         // set current position
         //this.setCurrentPosition();
         // load Places Autocomplete
@@ -95,9 +95,10 @@ export class ViajesComponent implements OnInit {
 
             this.setupPlaceChangedListener(autocompleteInput, 'ORG');
             this.setupPlaceChangedListener(autocompleteOutput, 'DES');
+            this.datosObj();
         });
     }
-
+    
     private setupPlaceChangedListener(autocomplete: any, mode: any ) {
         autocomplete.addListener('place_changed', () => {
             this.ngZone.run(() => {
@@ -133,22 +134,30 @@ export class ViajesComponent implements OnInit {
                 this.origenLng = this.vc.origin.longitude;
                 this.destinoLat = this.vc.destination.latitude;
                 this.destinoLng = this.vc.destination.longitude;
+               
              }
            });
 
         });
 
    }
+  
+   getDistanceAndDuration(){
+    this.estimatedTime = this.vc.estimatedTime;
+    this.estimatedDistance = this.vc.estimatedDistance;
+  }
 
-    getDistanceAndDuration() {
-        this.estimatedTime = this.vc.estimatedTime;
-        this.estimatedDistance = this.vc.estimatedDistance;
+    datosObj(){
+        let inputValue = (document.getElementById('tiempo') as HTMLInputElement).value;
+        //var val =  (<HTMLInputElement>document.getElementById('tiempo')).value;
+        var val1 =  (<HTMLInputElement>document.getElementById('distancia')).value;
+
+        console.log(inputValue); 
+        console.log(val1);
     }
-
     scrollToBottom(): void {
         jQuery('html, body').animate({ scrollTop: jQuery(document).height() }, 3000);
     }
-
     private setPickUpLocation( place: any ) {
         // verify result
         if (place.geometry === undefined || place.geometry === null) {

@@ -30,6 +30,7 @@ import { VerificarJwtService } from './servicio/verificar-jwt.service';
 import { AgmCoreModule} from '@agm/core';
 import { DirectionsMapDirective } from './google-map.directive';
 import { AgmDirectionModule} from 'agm-direction';
+import { PesosPipe } from './pipes/pesos.pipe';
 
 
 const appRoutes: Routes = [
@@ -59,7 +60,8 @@ const appRoutes: Routes = [
     ModificarViajesComponent,
     EncuestaComponent,
     VehiculosComponent,
-    ViajesPagosComponent
+    ViajesPagosComponent,
+    PesosPipe
   ],
   imports: [
     AgmCoreModule.forRoot({
