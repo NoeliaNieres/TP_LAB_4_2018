@@ -31,7 +31,8 @@ import { AgmCoreModule} from '@agm/core';
 import { DirectionsMapDirective } from './google-map.directive';
 import { AgmDirectionModule} from 'agm-direction';
 import { PesosPipe } from './pipes/pesos.pipe';
-
+///CAPTCHA
+import { RecaptchaModule } from 'ng-recaptcha';
 
 const appRoutes: Routes = [
   { path: 'inicio',component: InicioComponent},
@@ -76,6 +77,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     AgmDirectionModule,
     BsModalModule,
+    RecaptchaModule.forRoot(),
     RouterModule.forRoot(appRoutes),
   ],
   providers: [AuthService,UsuarioService,VerificarJwtService],
