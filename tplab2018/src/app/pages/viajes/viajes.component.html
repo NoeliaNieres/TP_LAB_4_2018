@@ -32,7 +32,7 @@
             <label for="metodoPago">Vehiculos:</label>
               <select #t  class="bootstrap-select" [(ngModel)]="vehiculo_id" [ngModelOptions]="{standalone: true}" required (change)="handleSelectedValue(t.value)">
                <option  disabled selected>Ninguno</option>
-                <option *ngFor="let auto of arrayAutos" [ngValue]="auto.id" [hidden]="auto.categoria !== nivel ? true : null">
+                <option *ngFor="let auto of arrayAutos" [ngValue]="auto.id">
                 {{ auto.marca }}</option>
               </select>
             </div>

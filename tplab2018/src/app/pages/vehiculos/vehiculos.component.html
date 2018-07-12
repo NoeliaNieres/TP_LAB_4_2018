@@ -23,12 +23,12 @@
           </div>
           <br>
           <div class="form-control">
-              <label for="metodoPago">Remiseros:</label>
-              <select class="bootstrap-select" [(ngModel)]="miVehiculo.usuario_id" [ngModelOptions]="{standalone: true}" required>
-                  <option value="-1">Ninguno</option>
-                  <option *ngFor="let c of arrayRemos" [ngValue]="c.id">{{c.username}}</option>
-              </select>
-          </div>
+                <label for="metodoPago">Remiseros:</label>
+                <select class="bootstrap-select" [(ngModel)]="miVehiculo.usuario_id" [ngModelOptions]="{standalone: true}" required>
+                    <option value="-1">Ninguno</option>
+                    <option *ngFor="let c of arrayRemos" [ngValue]="c.id">{{c.username}}</option>
+                </select>
+            </div>
           <div class="form-group">
                 <label for="fechaViaje">Habilitado:</label>
                 <input type="checkbox" class=" " [(ngModel)]="miVehiculo.habilitado"  #habilitado (change)="habilitar( habilitado.checked )" name="habilitado" placeholder="Habilitado" />

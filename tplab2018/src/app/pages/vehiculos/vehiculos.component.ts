@@ -15,19 +15,24 @@ export class VehiculosComponent implements OnInit {
     @ViewChild('modal')
     modal: BsModalComponent;
     public verLista: boolean;
+    @Input() arrayRemos: Array<any>;
     vehiculo: Vehiculo;
     public miVehiculo = new Vehiculo('', '', '', '', -1);
     error = '';
     datosMostrar: any = {};
     public modificado: boolean;
+    public enviado: boolean;
 
     constructor(private ws: UsuarioService) {
         this.arrayVehiculos = new Array<any>();
+        this.arrayRemos = new Array<any>();
     }
 
     ngOnInit() {
       this.buscarTodos();
+      this.remiseros();
       this.modificado = false;
+      this.enviado = false;
     }
     public habilitar(boleano) {
       if (boleano) {
@@ -36,6 +41,15 @@ export class VehiculosComponent implements OnInit {
           this.miVehiculo.habilitado = 0;
       }
     }
+    remiseros() {
+
+      this.ws.traerObj('/usuario/remo/')
+      .then( data => {
+          this.arrayRemos = data;
+          console.log(data);
+      })
+      .catch( error => { console.log(error); });
+  }
     submit() {
         const registro = new Vehiculo(
         this.miVehiculo.patente,
@@ -47,6 +61,7 @@ export class VehiculosComponent implements OnInit {
       this.ws.enviarObj(registro,'/vehiculo/').subscribe(
          data => {
            //this.verLista= true;
+           this.enviado = true;
            this.buscarTodos();
            console.log(data);
          },
@@ -76,6 +91,7 @@ export class VehiculosComponent implements OnInit {
     }
     
     public modificarVehiculo(){
+      
       this.ws.enviarObj(this.datosMostrar,'/vehiculo/modificar/')
       .subscribe( data => {
           this.modificado = true;
@@ -86,7 +102,7 @@ export class VehiculosComponent implements OnInit {
   buscarTodos() {
     this.ws.traerObj('/vehiculo/').then( 
       data => { 
-        this.arrayVehiculos = data; 
+        this.arrayVehiculos = data;
       }).catch( 
         error => { 
           console.log(error); 

@@ -51,12 +51,14 @@ export class ModificarViajesComponent implements OnInit {
     public arrayViajes;
     public direOrigen;
     public direDest;
-    //Get Directions
+    @Input() arrayAutos: Array<any>;
+    public showHide:boolean = false;
     public dir:any;
     selectedEntry;
     private token: any;
     private tokenPayload: any;
-    private mostrarLoader: boolean;
+    private vehiculo_id: any;
+    
     onSelectionChange(entry) {
         this.selectedEntry = entry;
     }
@@ -85,7 +87,8 @@ export class ModificarViajesComponent implements OnInit {
   
     this.viajeSolicitado = false;
     this.mostrarLista = true;
-
+    this.arrayAutos = new Array<any>();
+    this.cargarAutos();
     this.destinationInput = new FormControl();
     this.destinationOutput = new FormControl();
 
@@ -166,7 +169,16 @@ buscarDirDest(lat,lng){
       error => { console.log(error); 
     });
 }
+cargarAutos() {
 
+  this.service.traerObj('/vehiculo/habilitados/')
+  .then( data => {
+      this.arrayAutos = data;
+  })
+  .catch( error => {
+      console.log(error);
+  });
+}
 //  Traigo todos los viajes o solo los del cliente
 buscarTodos() {
 
@@ -189,6 +201,13 @@ buscarTodos() {
     }
   }
 }
+handleSelectedValue(value) {
+  // Get and value and assign it to variable declared above 
+    if(value == '1')
+     this.showHide = true;
+ 
+ }
+
 cargarObjeto($id){
   this.viajeSolicitado = false;
   this.service.traerUnViajeId($id).subscribe( 
@@ -230,7 +249,7 @@ public modificarViaje(){
     this.datosMostrar.distancia =this.estimatedDistance;
     console.log("modifico direcciones");
   }
-
+  console.log(this.datosMostrar);
   this.service.modViaje(this.datosMostrar,'/viaje/modificar/')
   .then( data => {
       this.viajeSolicitado = true;

@@ -26,7 +26,7 @@
                     <span *ngIf="viaje.tipo_pago==2">Crédito</span>
                 </td>
                 <td>
-                    <button class="btn btn-success" (click)="modal.open()" (click)="cargarObjeto(viaje.id)">MODIFICAR</button>
+                    <button class="btn btn-success" onclick="document.getElementById('id').style.display='block'" (click)="cargarObjeto(viaje.id)">MODIFICAR</button>
                     <button class="btn btn-danger" (click)="eliminarObjeto(viaje)">Cancelar</button>
                 </td>
             </tr>
@@ -36,14 +36,24 @@
 </div> 
 <!-- VER VIAJE POR ID Y MODIFICAR
     ================================================== -->
-<bs-modal #modal>
-    <bs-modal-header [showDismiss]="true">
-        <h4 class="modal-title"> MODIFICAR VIAJE</h4>
-    </bs-modal-header>
-    <bs-modal-body>
+    
+ 
+        <div class="w3-container">
+            <div id="id" class="w3-modal">
+                                 
+                    <div class="modal-content center-screen">
+                 <div class="modal-header">
+             <div class="w3-center">
+                <span onclick="document.getElementById('id').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+                 </div>
+            
+                 </div>
+            <div class="modal-body">
+                
             <div class="card card-container"> 
+                <h1>MODIFICAR VIAJE</h1>
                <div class="form-group">
-                <form *ngIf="!viajeSolicitado" (ngSubmit)="modificarViaje()" class="form-horizontal" #formViajes="ngForm" novalidate>
+                <form *ngIf="!viajeSolicitado" (ngSubmit)="modificarViaje()" class="form-horizontal" #formViajes="ngForm">
                         <label style="margin: auto;">Cambiar direcciones </label>
                         <label class="form-check-label">
                                 <input class="form-check-input" type="radio" name="mode" [value]="false" [(ngModel)]="viajeModificar">Si
@@ -83,6 +93,14 @@
                         <option value="1">Confort</option>
                         <option value="2">Premium</option>
                     </select>
+                    <div class="form-control">
+                            <label for="metodoPago">Vehiculos:</label>
+                              <select #t  class="bootstrap-select" [(ngModel)]="datosMostrar.vehiculo_id" [ngModelOptions]="{standalone: true}" required (change)="handleSelectedValue(t.value)">
+                               <option  disabled selected>Ninguno</option>
+                                <option *ngFor="let auto of arrayAutos" [ngValue]="auto.id" [selected]="datosMostrar.vehiculo_id">
+                                {{ auto.marca }}</option>
+                              </select>
+                    </div>
                     <div *ngIf="!viajeModificar">
                     <agm-map  [latitude]="latitude" [longitude]="longitude"> 
                             <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
@@ -103,5 +121,6 @@
             <p>su solicitud a sido enviada con exito.</p>
         </div>
     </div>
-    </bs-modal-body>
-</bs-modal>
+</div>
+</div>
+</div>
