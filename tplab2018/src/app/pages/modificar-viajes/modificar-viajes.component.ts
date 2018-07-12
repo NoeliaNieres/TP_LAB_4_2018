@@ -210,6 +210,8 @@ public modificarViaje(){
     this.datosMostrar.lng_o = this.origenLng;
     this.datosMostrar.lat_d = this.destinoLat;
     this.datosMostrar.lng_d = this.destinoLng;
+    this.datosMostrar.duracion =this.estimatedTime;
+    this.datosMostrar.distancia =this.estimatedDistance;
     console.log("modifico direcciones");
   }
 
@@ -222,6 +224,22 @@ public modificarViaje(){
      console.log(e);
  } );
  this.viajeModificar = true;
+}
+getDistanceAndDuration(){
+  let tiempo = this.vc.estimatedTime;
+  let distancia = this.vc.estimatedDistance;
+
+  var d = distancia.toString().replace("km","");
+  var t = tiempo.toString().replace("min","");
+  this.estimatedDistance =d;
+  this.estimatedTime =t;
+}
+getDataForTable($event: any) {
+  $event.target.classList.add('active');
+  console.log('active');
+  this.getDistanceAndDuration();
+  //this.datosObj();
+  // get data for table since we are opening the div to show the body
 }
 /*DibujarRuta(){
     this.gmapsApi.getNativeMap().then(map =>{

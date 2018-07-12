@@ -1,4 +1,4 @@
-import { Component, NgModule, NgZone, OnInit, ViewChild, ElementRef, Directive, Input ,} from '@angular/core';
+import { Component, NgModule, NgZone, OnInit, ViewChild, ElementRef, Directive, Input ,ChangeDetectorRef} from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {  MapsAPILoader, GoogleMapsAPIWrapper } from '@agm/core';
@@ -39,13 +39,15 @@ export class ViajesComponent implements OnInit {
     private destinoLng: any;
     private objViaje: Viaje;
     public viajeSolicitado: boolean;
-
+    display = false;
     @ViewChild('pickupInput') pickupInputElementRef: ElementRef;
 
     @ViewChild('pickupOutput') pickupOutputElementRef: ElementRef;
 
     @ViewChild('scrollMe')
     private scrollContainer: ElementRef;
+
+    @ViewChild('directionsList') directionsList:ElementRef;
 
     @ViewChild(DirectionsMapDirective) vc: DirectionsMapDirective;
 
@@ -57,7 +59,8 @@ export class ViajesComponent implements OnInit {
         private ngZone: NgZone,
         private gmapsApi: GoogleMapsAPIWrapper,
         private _elementRef: ElementRef,
-        private ws: UsuarioService
+        private ws: UsuarioService,
+        private changeDetector : ChangeDetectorRef
     ) {
         const date = new Date();
         const year = date.getFullYear();
@@ -66,8 +69,9 @@ export class ViajesComponent implements OnInit {
 
         this.startDate = new Date(year, month, day);
     }
-
+   
     ngOnInit() {
+      
         this.objViaje = new Viaje();
         this.viajeSolicitado = false;
         // set google maps defaults
@@ -95,7 +99,6 @@ export class ViajesComponent implements OnInit {
 
             this.setupPlaceChangedListener(autocompleteInput, 'ORG');
             this.setupPlaceChangedListener(autocompleteOutput, 'DES');
-            this.datosObj();
         });
     }
     
@@ -117,6 +120,7 @@ export class ViajesComponent implements OnInit {
                     latitude: place.geometry.location.lat()
                 }; // its a example aleatory position
                 this.vc.destinationPlaceId = place.place_id;
+                
             }
 
              if (this.vc.directionsDisplay === undefined) {
@@ -128,32 +132,44 @@ export class ViajesComponent implements OnInit {
              // Update the directions
              this.vc.updateDirections();
              this.zoom = 12;
+        
              //this.getDistanceAndDuration();
              if (this.vc.destination !== undefined ) {
                 this.origenLat = this.vc.origin.latitude;
                 this.origenLng = this.vc.origin.longitude;
                 this.destinoLat = this.vc.destination.latitude;
                 this.destinoLng = this.vc.destination.longitude;
-               
              }
            });
 
         });
 
    }
-  
+   
    getDistanceAndDuration(){
-    this.estimatedTime = this.vc.estimatedTime;
-    this.estimatedDistance = this.vc.estimatedDistance;
+    let tiempo = this.vc.estimatedTime;
+    let distancia = this.vc.estimatedDistance;
+ 
+    var d = distancia.toString().replace("km","");
+    var t = tiempo.toString().replace("min","");
+    this.estimatedDistance =d;
+    this.estimatedTime =t;
+  }
+  getDataForTable($event: any) {
+    $event.target.classList.add('active');
+    console.log('active');
+    this.getDistanceAndDuration();
+    //this.datosObj();
+    // get data for table since we are opening the div to show the body
   }
 
     datosObj(){
-        let inputValue = (document.getElementById('tiempo') as HTMLInputElement).value;
-        //var val =  (<HTMLInputElement>document.getElementById('tiempo')).value;
-        var val1 =  (<HTMLInputElement>document.getElementById('distancia')).value;
+     
+        let element = document.getElementById('directionsList');
+        var searchThis = element.textContent || element.innerText; ///trae solo el texto
 
-        console.log(inputValue); 
-        console.log(val1);
+        console.log(searchThis); 
+        
     }
     scrollToBottom(): void {
         jQuery('html, body').animate({ scrollTop: jQuery(document).height() }, 3000);

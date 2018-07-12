@@ -9,11 +9,8 @@
             <input placeholder="Destino" autocorrect="off" autocapitalize="off" spellcheck="off"
             type="text" class="form-control" #pickupOutput [formControl]="destinationOutput" required>
 
-            <div id="directionsList" class="panel panel-primary" ></div>
-
-            <input type="text" #tiempo id="tiempo" class="form-control" value="" readonly> 
-            <input type="text" #distancia id="distancia" class="form-control" value="" readonly>
-
+            <div #directionsList id="directionsList" class="panel panel-primary" (click)="$event.target.classList.contains('open') || getDataForTable($event)" ></div>
+            
             <label for="metodoPago">Metodo de Pago:</label>
             <select id="soflow-color" [(ngModel)]="metodoPago" [ngModelOptions]="{standalone: true}" required>
                 <option [ngValue]="undefined" selected>Seleccione modo de pago...</option>

@@ -47,7 +47,7 @@ export class LoginComponent{
       switch (num) {
           case '1':
                this.user.email = 'cliente@gmail.com';
-               this.user.clave = '12345678a'
+               this.user.clave = '12345678'
                break;
           case '2':
                this.user.email = 'remisero@hotmail.com';

@@ -34,7 +34,8 @@
     <span *ngIf="item.nivel==1">Confort</span>
     <span *ngIf="item.nivel==2">Premium</span>
 </td>
-  <td> {{ item.usuario_id | pesos }}</td>
+<td> {{ item.duracion * item.distancia | pesos }}</td>
+
 	<div *ngIf="item.estado=='0'"><td class="label label-warning" >Pendiente</td></div>
 	<div *ngIf="item.estado=='1'"><td class="label label-success">Pagado</td></div>
     </tr>

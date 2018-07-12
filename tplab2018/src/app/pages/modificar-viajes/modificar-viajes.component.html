@@ -3,13 +3,17 @@
 <div class="row text-uppercase">
     <div class="col-md-12 bg-secondary rounded">
         <h3 class="text-muted" >Lista de Viajes</h3>
-
+        
+        
         <table class="table table-hover" align="center">
+        <thead>
             <th>Tipo</th>
             <th>Fecha</th>
             <th>Modo de pago</th>
             <th>ACCIÓN</th>
-            <tr *ngFor="let viaje of arrayViajes">
+        </thead>
+        <tbody *ngFor="let viaje of arrayViajes">
+            <tr *ngIf="viaje.estado == 0">
                 <td>
                     <span *ngIf="viaje.nivel==0">Standard</span>
                     <span *ngIf="viaje.nivel==1">Confort</span>
@@ -23,9 +27,10 @@
                 </td>
                 <td>
                     <button class="btn btn-success" (click)="modal.open()" (click)="cargarObjeto(viaje.id)">MODIFICAR</button>
-                    <button class="btn btn-danger" (click)="eliminarObjeto(viaje)">ELIMINAR</button>
+                    <button class="btn btn-danger" (click)="eliminarObjeto(viaje)">Cancelar</button>
                 </td>
             </tr>
+        </tbody>
         </table>
     </div>
 </div> 
@@ -48,7 +53,7 @@
                         </label> 
                     <div [hidden]="viajeModificar">
                             <label for="tipo_pago">Ingrese las direcciones</label>
-                        <input placeholder="Origen" autocorrect="off" autocapitalize="off" spellcheck="off"
+                            <input placeholder="Origen" autocorrect="off" autocapitalize="off" spellcheck="off"
                             type="text" class="form-control" #pickupInput [formControl]="destinationInput" required>
                 
                             <input placeholder="Destino" autocorrect="off" autocapitalize="off" spellcheck="off"
