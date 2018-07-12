@@ -8,6 +8,7 @@ import { UsuarioService } from '../../servicio/usuario.service';
 import { Viaje } from '../../clases/viaje';
 import {} from '@types/googlemaps';
 import { BsModalComponent } from 'ng2-bs3-modal';
+import * as jwt_decode from 'jwt-decode';
 
 declare const  google: any;
 declare const  jQuery: any;
@@ -53,6 +54,9 @@ export class ModificarViajesComponent implements OnInit {
     //Get Directions
     public dir:any;
     selectedEntry;
+    private token: any;
+    private tokenPayload: any;
+    private mostrarLoader: boolean;
     onSelectionChange(entry) {
         this.selectedEntry = entry;
     }
@@ -163,15 +167,27 @@ buscarDirDest(lat,lng){
     });
 }
 
-//  Traigo todas las personas
+//  Traigo todos los viajes o solo los del cliente
 buscarTodos() {
-    this.service.traerViajes().then( 
-      data => { 
-        this.mostrarLista = true; 
-        this.arrayViajes = data; 
-      }).catch( 
-        error => { console.log(error); 
-      });
+
+  this.token = localStorage.getItem('token');
+  if (this.token !== null) {
+    this.tokenPayload = jwt_decode(this.token);
+    if (null !== this.tokenPayload.data.email) {
+        this.service.traerViajesId(this.tokenPayload.data.id)
+        .subscribe( 
+          data => {
+             console.log(data);
+            if (data !== null) {
+                this.mostrarLista = true; 
+                this.arrayViajes = data;
+              }
+
+        },error => console.log(error)
+      )
+        
+    }
+  }
 }
 cargarObjeto($id){
   this.viajeSolicitado = false;

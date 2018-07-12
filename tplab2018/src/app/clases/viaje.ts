@@ -9,6 +9,7 @@ export class Viaje {
     public token: any;
     public duracion: any;
     public distancia: any;
+    public vehiculo_id: any;
   
     constructor() { }
   }

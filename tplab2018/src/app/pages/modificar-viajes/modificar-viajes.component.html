@@ -13,7 +13,7 @@
             <th>ACCIÓN</th>
         </thead>
         <tbody *ngFor="let viaje of arrayViajes">
-            <tr *ngIf="viaje.estado == 0">
+            <tr *ngIf="viaje.estado !== -1">
                 <td>
                     <span *ngIf="viaje.nivel==0">Standard</span>
                     <span *ngIf="viaje.nivel==1">Confort</span>

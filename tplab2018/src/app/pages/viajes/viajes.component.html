@@ -28,6 +28,14 @@
                 <input type="radio" name="nivel" [(ngModel)]="nivel" (click)="nivel='1'" value="1">Confort
                 <input type="radio" name="nivel" [(ngModel)]="nivel" (click)="nivel='2'" value="2">Premium
             </div> 
+            <div class="form-control">
+            <label for="metodoPago">Vehiculos:</label>
+              <select #t  class="bootstrap-select" [(ngModel)]="vehiculo_id" [ngModelOptions]="{standalone: true}" required (change)="handleSelectedValue(t.value)">
+               <option  disabled selected>Ninguno</option>
+                <option *ngFor="let auto of arrayAutos" [ngValue]="auto.id" [hidden]="auto.categoria !== nivel ? true : null">
+                {{ auto.marca }}</option>
+              </select>
+            </div>
             <br><br>  
               <agm-map [latitude]="latitude" [longitude]="longitude" >
                 <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>

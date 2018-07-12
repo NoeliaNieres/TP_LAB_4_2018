@@ -36,10 +36,14 @@ export class ViajesComponent implements OnInit {
     private origenLat: any;
     private origenLng: any;
     private destinoLat: any;
+    private vehiculo_id: any;
     private destinoLng: any;
     private objViaje: Viaje;
     public viajeSolicitado: boolean;
     display = false;
+    public showHide:boolean = false;
+    @Input() arrayAutos: Array<any>;
+
     @ViewChild('pickupInput') pickupInputElementRef: ElementRef;
 
     @ViewChild('pickupOutput') pickupOutputElementRef: ElementRef;
@@ -75,6 +79,9 @@ export class ViajesComponent implements OnInit {
         this.objViaje = new Viaje();
         this.viajeSolicitado = false;
         // set google maps defaults
+        this.arrayAutos = new Array<any>();
+        this.cargarAutos();
+        this.vehiculo_id = -1;
         this.zoom = 4;
         this.latitude = -34.603722;
         this.longitude = -58.381592;
@@ -194,6 +201,12 @@ export class ViajesComponent implements OnInit {
        });
      }
    }
+   handleSelectedValue(value) {
+    // Get and value and assign it to variable declared above 
+      if(value == '1')
+       this.showHide = true;
+   
+   }
 
    private getMapCusotmStyles() {
      // Write your Google Map Custom Style Code Here.
@@ -217,6 +230,7 @@ export class ViajesComponent implements OnInit {
         this.objViaje.nivel = this.nivel;
         this.objViaje.duracion = this.estimatedTime ;
         this.objViaje.distancia = this.estimatedDistance;
+        this.objViaje.vehiculo_id = this.vehiculo_id;
         this.objViaje.token = localStorage.getItem('token');
 
         this.ws.enviarViaje(this.objViaje,'/viaje/')
@@ -228,4 +242,14 @@ export class ViajesComponent implements OnInit {
            console.log(e);
        } );
    }
+   cargarAutos() {
+
+    this.ws.traerObj('/vehiculo/habilitados/')
+    .then( data => {
+        this.arrayAutos = data;
+    })
+    .catch( error => {
+        console.log(error);
+    });
+}
 }
