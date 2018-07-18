@@ -31,8 +31,12 @@
     "core-js": "^2.4.1",
     "enhanced-resolve": "^3.3.0",
     "jwt-decode": "^2.2.0",
+    "mydatepicker": "^2.6.3",
     "ng-recaptcha": "^3.0.5",
     "ng2-bs3-modal": "^0.15.0",
+    "ngx-file-drop": "^4.0.6",
+    "primeicons": "^1.0.0-beta.9",
+    "primeng": "^6.0.1",
     "rxjs": "6.2.1",
     "rxjs-compat": "^6.2.1",
     "zone.js": "^0.8.26"

@@ -2,7 +2,7 @@
 <div class="encuesta">
   <div class="form-group">
       <form *ngIf="!encuestaCargada"  (ngSubmit)="cargarEncuesta()" class="form-horizontal" #formTurno="ngForm" ngNativeValidate>
-          <label class="control-label" for="respuesta_8">¿Conocías Remiseria “Humberto”?</label>
+        <label class="control-label" for="respuesta_8">¿Conocías Remiseria “Humberto”?</label>
           <div class="">
              Si <input type="checkbox" class=" " [checked]="respuesta_8" (change)="respuesta_8 = !respuesta_8" name="respuesta_8" />
           </div>
@@ -59,7 +59,16 @@
               <br>
               <input type="radio" name="respuesta_7" [(ngModel)]="respuesta_7" value="NI">Tal vez
           </div>
-          <button type="submit" class="btn bg-primary" name="btnEncuesta" value="encuesta">Cargar Encuesta</button>
+          <p-messages [(value)]="msgs"></p-messages>
+          <p-fileUpload name="myfile[]" url="http://localhost:8080/archivo/" multiple="multiple" [auto]="true" #pfuReference1 (onSelect)="onSelect($event, pfuReference1)"
+          accept="image/*" maxFileSize="1000000">
+          <ng-template pTemplate="content">
+            <ul *ngIf="uploadedFiles.length">
+               <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes </li>
+            </ul>
+        </ng-template>   
+      </p-fileUpload>  
+        <button type="submit" class="btn bg-primary" name="btnEncuesta" value="encuesta">Cargar Encuesta</button>
       </form>
   </div>
 
@@ -109,7 +118,7 @@
       <div class="progress progress-striped active">
         <div class="progress-bar" style="width: 15%;"></div>
       </div>
-      
+     
     </div>
   </div>
 </div>

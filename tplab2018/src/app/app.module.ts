@@ -34,6 +34,16 @@ import { PesosPipe } from './pipes/pesos.pipe';
 ///CAPTCHA
 import { RecaptchaModule } from 'ng-recaptcha';
 
+///FOTOS
+//import { FileDropModule } from 'ngx-file-drop';
+import { CalendarModule } from 'primeng/calendar';
+import { FileUploadModule } from 'primeng/fileupload';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessagesModule, GrowlModule } from 'primeng/primeng';
+import { MessageModule } from 'primeng/message';
+import { DataTableModule } from 'primeng/primeng';
+
 const appRoutes: Routes = [
   { path: 'inicio',component: InicioComponent},
   { path: 'login',component: LoginComponent},
@@ -77,6 +87,14 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     AgmDirectionModule,
     BsModalModule,
+    FileUploadModule,
+    CalendarModule,
+    DialogModule,
+    ConfirmDialogModule,
+    MessagesModule, 
+    GrowlModule,
+    DataTableModule,
+    MessageModule,
     RecaptchaModule.forRoot(),
     RouterModule.forRoot(appRoutes),
   ],

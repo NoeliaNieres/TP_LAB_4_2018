@@ -20,8 +20,7 @@
             </select>
             <br>
             <label for="fechaViaje">Fecha:</label>
-            <input id="fechaViaje" [(ngModel)]="fechaViaje" type="datetime-local" 
-            min="startDate" [ngModelOptions]="{standalone: true}" required>
+            <p-calendar  [(ngModel)]="date2" name="date2" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
             <br><br>
             <div class="form-control">
                 <input type="radio" name="nivel" [(ngModel)]="nivel" (click)="nivel='0'" value="0">Standard

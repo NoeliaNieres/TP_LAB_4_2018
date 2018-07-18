@@ -54,6 +54,20 @@ export class ViajesComponent implements OnInit {
     @ViewChild('directionsList') directionsList:ElementRef;
 
     @ViewChild(DirectionsMapDirective) vc: DirectionsMapDirective;
+    date1: Date;
+    date2: Date;
+    date3: Date;
+    dates: Date[];
+    rangeDates: Date[];
+    minDate: Date;
+    maxDate: Date;
+    es: any;
+    tr:any;
+    invalidDates: Array<Date>
+    tipo:string;
+    fecha:string;
+    ok:boolean;
+    value: Date;
 
     public origin: any ; // its a example aleatory position
     public destination: any; // its a example aleatory position
@@ -82,6 +96,39 @@ export class ViajesComponent implements OnInit {
         this.arrayAutos = new Array<any>();
         this.cargarAutos();
         this.vehiculo_id = -1;
+        this.es = {
+            firstDayOfWeek: 1,
+            dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
+            dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
+            dayNamesMin: [ "D","L","M","X","J","V","S" ],
+            monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
+            monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ],
+            today: 'Hoy',
+            clear: 'Borrar'
+        }
+        
+        this.tr = {
+            firstDayOfWeek : 1
+        }
+        
+        let today = new Date();
+        let month = today.getMonth();
+        let year = today.getFullYear();
+        let prevMonth = (month === 0) ? 11 : month -1;
+        let prevYear = (prevMonth === 11) ? year - 1 : year;
+        let nextMonth = (month === 11) ? 0 : month + 1;
+        let nextYear = (nextMonth === 0) ? year + 1 : year;
+        this.minDate = new Date();
+        this.minDate.setMonth(prevMonth);
+        this.minDate.setFullYear(prevYear);
+        this.maxDate = new Date();
+        this.maxDate.setMonth(nextMonth);
+        this.maxDate.setFullYear(nextYear);
+        
+        let invalidDate = new Date();
+        invalidDate.setDate(today.getDate() - 1);
+        this.invalidDates = [today,invalidDate];
+
         this.zoom = 4;
         this.latitude = -34.603722;
         this.longitude = -58.381592;
