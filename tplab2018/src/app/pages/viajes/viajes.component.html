@@ -9,8 +9,8 @@
             <input placeholder="Destino" autocorrect="off" autocapitalize="off" spellcheck="off"
             type="text" class="form-control" #pickupOutput [formControl]="destinationOutput" required>
 
-            <div #directionsList id="directionsList" class="panel panel-primary" (click)="$event.target.classList.contains('open') || getDataForTable($event)" ></div>
-            
+            <div #directionsList id="directionsList" class="collapsible-header blue darken-2" (click)="getDataForTable($event)" ></div>
+
             <label for="metodoPago">Metodo de Pago:</label>
             <select id="soflow-color" [(ngModel)]="metodoPago" [ngModelOptions]="{standalone: true}" required>
                 <option [ngValue]="undefined" selected>Seleccione modo de pago...</option>
@@ -35,6 +35,13 @@
                 {{ auto.marca }}</option>
               </select>
             </div>
+            
+            <div class="capt"> 
+                <h2 type="text" #mainCaptcha  id="mainCaptcha"></h2>
+                <input type="button" id="refresh" (click)="Captcha()"/>          
+                <input type="text" id="txtInput" required/>    
+                <input id="Button1" type="button" value="Verificar" (click)="ValidCaptcha()"/>
+                </div>
             <br><br>  
               <agm-map [latitude]="latitude" [longitude]="longitude" >
                 <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
@@ -43,9 +50,6 @@
             <br>
             <button type="submit" style="font-size: 18px" class="btn btn-outline-secondary" name="guardar" value="Solicitar">Enviar</button>
         </form>
-    </div>
-    <div *ngIf="viajeSolicitado" >
-        <p>su solicitud a sido enviada con exito.</p>
     </div>
 </div>
 </div>

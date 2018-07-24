@@ -54,25 +54,24 @@ export class DirectionsMapDirective {
             }, function(response: any, status: any) {
 
                 if (status === 'OK') {
-
-                    me.directionsDisplay.setDirections(response);
-                    
                     map.setZoom(30);
-                    const point = response.routes[ 0 ].legs[ 0 ];
-                    me.estimatedTime = point.duration.text;
-                    me.estimatedDistance = point.distance.text;
-                   // console.log( 'Estimated travel time: ' + point.duration.text + ' (' + point.distance.text + ')' );
-                    
+                    document.getElementById('directionsList').innerHTML = null;
+                    me.directionsDisplay.setDirections(response);
                     me.directionsDisplay.setPanel(document.getElementById('directionsList'));
-                    //me.computeTotalDistance(point);
-                    if(document.getElementById('directionsList'))
-                    {
-                      document.getElementById('directionsList').addEventListener('change', function() {
-                        me.computeTotalDistance(point);
-                      });
-                    }
-                    
+
+                    const point = response.routes[ 0 ].legs[ 0 ];//primer resultado
                     me.computeTotalDistance(point);
+            
+                    google.maps.event.addListener(me.directionsDisplay, 'routeindex_changed', 
+                    function() { 
+                      //alert(me.directionsDisplay.getRouteIndex());
+                      var numero = me.directionsDisplay.getRouteIndex();
+                      if(numero){
+                        //console.log(numero);
+                        me.computeTotalDistance(response.routes[numero].legs[ 0 ]);
+                      }
+                    });
+                          
                 } else {
                   console.log('Directions request failed due to ' + status);
                 }
@@ -87,5 +86,7 @@ export class DirectionsMapDirective {
   private computeTotalDistance(result) {
     this.estimatedTime = result.duration.text;
     this.estimatedDistance = result.distance.text;
+    console.log('entra en compute');
+    console.log('tiempo con this ' + this.estimatedTime + ' distancia ' +this.estimatedDistance  );
   }
 }

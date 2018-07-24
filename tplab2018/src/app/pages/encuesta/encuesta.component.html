@@ -73,13 +73,13 @@
   </div>
 
   <div *ngIf="encuestaCargada" >
-      <p>su solicitud a sido enviada con exito.</p>
+      <p>Su encuesta a sido enviada con exito.</p>
   </div>
 </div>
 </div>
 <!--*****************ADMINISTRADOR********************************** -->
 <div *ngIf="Comprobar()===1">
-<div class="main"> 
+<!-- <div class="main"> 
     <h4>
       <span>
         <i class="fa fa-bar-chart-o"></i></span>Estadisticas
@@ -118,7 +118,10 @@
       <div class="progress progress-striped active">
         <div class="progress-bar" style="width: 15%;"></div>
       </div>
-     
+   
     </div>
-  </div>
+  </div>-->
+  <div class="col-md-5">
+    <p-galleria [images]="images" panelWidth="500" panelHeight="313" [showCaption]="false"></p-galleria> 
+   </div>
 </div>

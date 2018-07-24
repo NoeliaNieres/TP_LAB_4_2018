@@ -47,6 +47,10 @@ export class UsuarioService {
     .map((res: Response) => res.json());
 
   }
+  public TraerFotos() {
+    console.log("llego fotos");
+    return this.http.get( this.url  + '/traerFotos').map((res: Response) => res.json());
+  }
   //**************ACCIONES EN VIAJES**********************************////
 
   public enviarViaje(viaje: Viaje, ruta: string) {

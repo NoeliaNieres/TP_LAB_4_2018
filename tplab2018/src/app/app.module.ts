@@ -43,6 +43,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule, GrowlModule } from 'primeng/primeng';
 import { MessageModule } from 'primeng/message';
 import { DataTableModule } from 'primeng/primeng';
+import { GalleriaModule } from 'primeng/galleria';
+//DESCARGA DE ARCHIVOS 
+import { Angular2CsvModule } from 'angular2-csv';
 
 const appRoutes: Routes = [
   { path: 'inicio',component: InicioComponent},
@@ -95,8 +98,10 @@ const appRoutes: Routes = [
     GrowlModule,
     DataTableModule,
     MessageModule,
+    Angular2CsvModule,
+    GalleriaModule,
     RecaptchaModule.forRoot(),
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [AuthService,UsuarioService,VerificarJwtService],
   bootstrap: [AppComponent]

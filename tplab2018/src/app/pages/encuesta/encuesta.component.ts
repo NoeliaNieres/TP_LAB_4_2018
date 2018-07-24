@@ -7,6 +7,7 @@ import { UsuarioService } from '../../servicio/usuario.service';
 import { Encuesta } from '../../clases/encuesta';
 import { GrowlModule, Message } from 'primeng/primeng';
 import { FileUploadModule } from 'primeng/fileupload';
+import {GalleriaModule} from 'primeng/galleria';
 
 @Component({
   selector: 'app-encuesta',
@@ -39,7 +40,7 @@ export class EncuestaComponent implements OnInit {
   ocultarSpinner: boolean;
 
   private sub: any;
-  misImagenes: Array<any>;
+  misImagenes: any = {};
 
   constructor(private router: Router, private ws: UsuarioService) {
 
@@ -49,6 +50,7 @@ export class EncuestaComponent implements OnInit {
     this.miEncuesta = new Encuesta();
     this.encuestaCargada = false;
     this.respuesta_5 = -1;
+    this.cargarImagenes();
   }
   onSelect(event: any, pfuReference: any) {
     var modelo = this;
@@ -118,14 +120,37 @@ export class EncuestaComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          // this.encuestaCargada = true;
-          this.router.navigateByUrl('/inicio');
+           this.encuestaCargada = true;
+          //this.router.navigateByUrl('/inicio');
         },
         error => {
           console.log(error);
           console.error('Error guardando una encuesta.');
         }
       );
+  }
+  onImageClicked(event)
+  {
+    console.log(event);
+  }
+  cargarImagenes()
+  {
+    this.ws.TraerFotos().subscribe(
+      data =>{
+        console.log(data[0]);
+        this.misImagenes = data[0];
+        if(this.misImagenes.length > 0){
+          this.images = [];
+          for(let i=0;i<this.misImagenes.length;i++)
+          {
+            this.images.push({source:'http://localhost:8080/fotos/'+this.misImagenes[i], alt:'Imagen del Usuario', title:'Imagen '+i});
+          }
+        }
+      },
+        error =>{
+          console.log(error);
+        }
+    );
   }
 
 }

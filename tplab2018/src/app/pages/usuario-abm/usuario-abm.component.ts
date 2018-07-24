@@ -4,6 +4,8 @@ import * as jwt_decode from 'jwt-decode';
 import { UsuarioService } from '../../servicio/usuario.service';
 import { Router }  from '@angular/router';
 import { BsModalComponent } from 'ng2-bs3-modal';
+import * as jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 @Component({
   selector: 'app-usuario-abm',
@@ -23,9 +25,20 @@ export class UsuarioAbmComponent implements OnInit {
   public modificado: boolean;
   token: any;
   tokenPayload: any;
+  options = {
+    fieldSeparator: ';',
+    quoteStrings: '"',
+    decimalseparator: ',',
+    showLabels: true,
+    showTitle: false,
+    useBom: true,
+    headers: ['ID','Nombre', 'Mail', 'Rol']
+  };
+  data : any = {};
 
   constructor(private ws: UsuarioService,private router: Router) { 
     this.arrayUsuarios = new Array<any>();
+    this.data = this.arrayUsuarios;
   }
   
   ngOnInit() {
@@ -49,7 +62,23 @@ export class UsuarioAbmComponent implements OnInit {
        }
     );
   }
+  desPdf(){
+   var doc = new jsPDF();
+   var col = ['ID','Nombre', 'Mail', 'Rol']
+   var rows = [];
 
+  var itemNew = this.data;
+
+  itemNew.forEach(element => {      
+      var temp = [element.id,element.username,element.email,element.rol];
+      rows.push(temp);
+   
+  });        
+
+      doc.autoTable(col, rows, { startY: 10 });
+
+      doc.save('listado.pdf');
+  }
   buscarTodos() {
     this.token = localStorage.getItem('token');
     if (this.token !== null) {
@@ -59,6 +88,7 @@ export class UsuarioAbmComponent implements OnInit {
             this.ws.traerPersonas('/usuario/roles/')
             .then( data => {
                 this.arrayUsuarios = data;
+                this.data = data;
             })
             .catch( error => { console.log(error); });
         }
@@ -74,6 +104,7 @@ export class UsuarioAbmComponent implements OnInit {
     }
 
 }
+
 public cargarObjeto($id){
   this.modal.dismiss();
   this.ws.traerUnPersonaeId($id).subscribe( 
