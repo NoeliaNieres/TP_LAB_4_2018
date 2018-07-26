@@ -1,0 +1,47 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div *ngIf="loader" class="LockOn"><!-- SPINNER -->
+  
+    <div  class="parent">
+      
+      <div id="loader"></div><br>
+  
+    </div>
+  
+  </div><!-- FIN SPINNER -->
+<div class="row text-uppercase">
+    <div class="col-md-12 bg-secondary rounded">
+        <h3 class="text-muted" >Lista de Viajes</h3>
+        
+        
+        <table class="table table-hover" align="center">
+        <thead>
+            <th>Tipo</th>
+            <th>Fecha</th>
+            <th>Modo de pago</th>
+            <th>Estado</th>
+        </thead>
+        <tbody *ngFor="let viaje of arrayViajes">
+            <tr>
+                <td>
+                    <span *ngIf="viaje.nivel==0">Standard</span>
+                    <span *ngIf="viaje.nivel==1">Confort</span>
+                    <span *ngIf="viaje.nivel==2">Premium</span>
+                </td>
+                <td>{{viaje.fechayhora | date:'dd/MM/yyyy HH:mm'}}</td>
+                <td>
+                    <span *ngIf="viaje.tipo_pago==0">Efectivo</span>
+                    <span *ngIf="viaje.tipo_pago==1">Débito</span>
+                    <span *ngIf="viaje.tipo_pago==2">Crédito</span>
+                </td>
+                <td>
+                    <span *ngIf="viaje.estado==-1">Cancelado</span>
+                    <span *ngIf="viaje.estado==1">Activo</span>
+                    <span *ngIf="viaje.estado==0">Realizado</span>
+                </td>
+          
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div> 

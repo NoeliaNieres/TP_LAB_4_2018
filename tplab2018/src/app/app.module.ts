@@ -19,6 +19,10 @@ import { ModificarViajesComponent } from './pages/modificar-viajes/modificar-via
 import { EncuestaComponent } from './pages/encuesta/encuesta.component';
 import { VehiculosComponent } from './pages/vehiculos/vehiculos.component';
 import { ViajesPagosComponent } from './pages/viajes-pagos/viajes-pagos.component';
+import { RealizarPagosComponent } from './pages/realizar-pagos/realizar-pagos.component';
+import { VerMisViajesComponent } from './pages/ver-mis-viajes/ver-mis-viajes.component';
+import { ListadoViajesComponent } from './pages/listado-viajes/listado-viajes.component';
+
 
 //SERVICIOS
 import { AuthService } from './servicio/auth.service';
@@ -48,6 +52,7 @@ import { GalleriaModule } from 'primeng/galleria';
 import { Angular2CsvModule } from 'angular2-csv';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
+
 const appRoutes: Routes = [
   { path: 'inicio',component: InicioComponent},
   { path: 'login',component: LoginComponent},
@@ -58,6 +63,9 @@ const appRoutes: Routes = [
   { path: 'encuesta', component: EncuestaComponent, canActivate: [VerificarJwtService] },
   { path: 'vehiculos', component: VehiculosComponent, canActivate: [VerificarJwtService] },
   { path: 'pagos', component: ViajesPagosComponent, canActivate: [VerificarJwtService] },
+  { path: 'pagar', component: RealizarPagosComponent, canActivate: [VerificarJwtService] },
+  { path: 'viajes-cli', component: VerMisViajesComponent, canActivate: [VerificarJwtService] },
+  { path: 'todo-v', component: ListadoViajesComponent, canActivate: [VerificarJwtService] },
   { path: '',   redirectTo: '/inicio', pathMatch: 'full' },
   { path: '**', component: InicioComponent }
 ];
@@ -76,7 +84,10 @@ const appRoutes: Routes = [
     EncuestaComponent,
     VehiculosComponent,
     ViajesPagosComponent,
-    PesosPipe
+    PesosPipe,
+    RealizarPagosComponent,
+    VerMisViajesComponent,
+    ListadoViajesComponent
   ],
   imports: [
     AgmCoreModule.forRoot({

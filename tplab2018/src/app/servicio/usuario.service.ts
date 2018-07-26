@@ -77,6 +77,12 @@ export class UsuarioService {
   public traerViajesId(id: number) {
     return this.http.get(this.url  + '/viaje/mios/'+ id).map((response: Response) => response.json());
   }
+  public traerViajesIdTodos(id: number) {
+    return this.http.get(this.url  + '/viaje/miosTodos/'+ id).map((response: Response) => response.json());
+  }
+  public traerViajesRemisero(id: number) {
+    return this.http.get(this.url  + '/viaje/remisero/'+ id).map((response: Response) => response.json());
+  }
   public borrarViaje(viaje: Object, ruta: string) {
     // console.log(viaje);
     return this.http.post(this.url + ruta, {viaje})

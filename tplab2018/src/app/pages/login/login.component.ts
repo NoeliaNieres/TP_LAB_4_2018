@@ -19,7 +19,8 @@ export class LoginComponent{
   user: Usuario = new Usuario('', '');
   error = '';
   loginScreenAnimation: string = 'unchecked';
-
+  loader: boolean;
+  
   constructor(private router: Router,private ws: UsuarioService) {}
 
     public login() {

@@ -58,6 +58,7 @@ export class ModificarViajesComponent implements OnInit {
     private token: any;
     private tokenPayload: any;
     private vehiculo_id: any;
+    loader: boolean;
     
     onSelectionChange(entry) {
         this.selectedEntry = entry;
@@ -80,9 +81,13 @@ export class ModificarViajesComponent implements OnInit {
     private gmapsApi: GoogleMapsAPIWrapper,
     private _elementRef: ElementRef) {
       this.arrayViajes = new Array<any>();
+      this.loader = true;
   }
 
   ngOnInit() {
+    setTimeout(()=>{ 
+      this.loader = false;
+    }, 3000);
     this.buscarTodos();
   
     this.viajeSolicitado = false;
@@ -270,36 +275,8 @@ getDistanceAndDuration(){
   this.estimatedTime =t;
 }
 getDataForTable($event: any) {
-  $event.target.classList.add('active');
-  console.log('active');
   this.getDistanceAndDuration();
-  //this.datosObj();
-  // get data for table since we are opening the div to show the body
 }
-/*DibujarRuta(){
-    this.gmapsApi.getNativeMap().then(map =>{
 
-      this.origin = new google.maps.LatLng({lat: this.datosMostrar.lat_o,lng: this.datosMostrar.lng_o });
-      this.destination = new google.maps.LatLng({lat:this.datosMostrar.lat_d,lng:this.datosMostrar.lng_d });
-
-      var directionsService = new google.maps.DirectionsService;
-      var directionsDisplay = new google.maps.DirectionsRenderer({draggable: true});
-      //directionsDisplay.setMap(map);
-      console.log("Dibujo la ruta");
-    
-    directionsService.route({
-      origin: this.origin,
-      destination: this.destination,
-      travelMode: google.maps.TravelMode.DRIVING
-    }, (response, status) => {
-      if (status == google.maps.DirectionsStatus.OK) {
-        console.log(response);
-        this.vc.updateDirections();
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
-    });
-});
-}*/
 
 }

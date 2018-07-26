@@ -41,12 +41,17 @@ export class EncuestaComponent implements OnInit {
 
   private sub: any;
   misImagenes: any = {};
+  loader: boolean;
 
   constructor(private router: Router, private ws: UsuarioService) {
     this.ocultarSpinner = true;
+    this.loader = true;
   }
 
   ngOnInit() {
+    setTimeout(()=>{ 
+      this.loader = false;
+    }, 3000);
     this.miEncuesta = new Encuesta();
     this.encuestaCargada = false;
     this.respuesta_5 = -1;

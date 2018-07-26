@@ -1,4 +1,13 @@
 <br><br><br>
+<div *ngIf="loader" class="LockOn"><!-- SPINNER -->
+  
+    <div  class="parent">
+      
+      <div id="loader"></div><br>
+  
+    </div>
+  
+  </div><!-- FIN SPINNER -->
 <div id="outer">
         <div class="inner"><button (click)="verLista= !verLista" class="form-btn">Nuevo Vehiculo</button></div>
         <div class="inner"><button class="login100-form-btn" (click)="modal.open()">Ver Lista</button></div>

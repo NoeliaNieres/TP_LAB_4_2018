@@ -43,6 +43,9 @@ export class ViajesComponent implements OnInit {
     display = false;
     loader: boolean;
     public showHide:boolean = false;
+    private fechaAhora: any;
+    private fechaValidar: any;
+
     @Input() arrayAutos: Array<any>;
 
     @ViewChild('pickupInput') pickupInputElementRef: ElementRef;
@@ -118,12 +121,11 @@ export class ViajesComponent implements OnInit {
         this.tr = {
             firstDayOfWeek : 1
         }
-        
         let today = new Date();
         let month = today.getMonth();
         let year = today.getFullYear();
-        let prevMonth = (month === 0) ? 11 : month -1;
-        let prevYear = (prevMonth === 11) ? year - 1 : year;
+        let prevMonth = (month === 0) ? 11 : month;
+        let prevYear = (prevMonth === 11) ? year : year;
         let nextMonth = (month === 11) ? 0 : month + 1;
         let nextYear = (nextMonth === 0) ? year + 1 : year;
         this.minDate = new Date();
@@ -136,7 +138,7 @@ export class ViajesComponent implements OnInit {
         let invalidDate = new Date();
         invalidDate.setDate(today.getDate() - 1);
         this.invalidDates = [today,invalidDate];
-
+    
         this.zoom = 4;
         this.latitude = -34.603722;
         this.longitude = -58.381592;
@@ -307,6 +309,11 @@ export class ViajesComponent implements OnInit {
         console.log(error);
     });
  }
+ onSelect($event) {
+    console.log($event);
+
+    
+}
  Captcha(){
         var alpha = new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
             'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z', 

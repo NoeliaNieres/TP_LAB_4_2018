@@ -1,5 +1,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div *ngIf="loader" class="LockOn"><!-- SPINNER -->
+  
+    <div  class="parent">
+      
+      <div id="loader"></div><br>
+  
+    </div>
+  
+  </div><!-- FIN SPINNER -->
 <div class="row text-uppercase">
     <div class="col-md-12 bg-secondary rounded">
         <h3 class="text-muted" >Lista de Viajes</h3>
@@ -68,20 +77,23 @@
                 
                             <input placeholder="Destino" autocorrect="off" autocapitalize="off" spellcheck="off"
                             type="text" class="form-control" #pickupOutput [formControl]="destinationOutput" required>         
-                            <div id="directionsList" class="panel panel-primary"></div>
+                            <div #directionsList id="directionsList" class="collapsible-header blue darken-2" (click)="getDataForTable($event)" ></div>
                     </div>   
     
                     <div [hidden]="!viajeModificar">
                         <input type="text" class="form-control" id="psw" name="direOrigen" [(ngModel)]="direOrigen">
                         <input type="text" class="form-control" id="psw" name="direDest" [(ngModel)]="direDest">
                     </div>
-                    <label for="tipo_pago">Metodo de Pago:</label>
-                    <select id="soflow-color" [(ngModel)]="datosMostrar.tipo_pago" name="tipo_pago" [ngModelOptions]="{standalone: true}" required>
-                        <option value="-1" selected>Seleccione modo de pago...</option>
-                        <option value="0">Efectivo</option>
-                        <option value="1">Débito</option>
-                        <option value="2">Crédito</option>
-                    </select>
+                    <div class="form-control">
+                            <label for="metodoPago">Metodo de Pago:</label>
+                            <select class="bootstrap-select" [(ngModel)]="metodoPago" [ngModelOptions]="{standalone: true}" required>
+                                <option value="-1">Seleccione modo de pago...</option>
+                                <option value="0">Efectivo</option>
+                                <option value="1">Débito</option>
+                                <option value="2">Crédito</option>
+                            </select>
+                        </div>
+                    <br>
                     <br>
                     <label for="fechayhora">Fecha:</label>
                     <input id="fechayhora" [(ngModel)]="datosMostrar.fechayhora" type="datetime-local" name="fechayhora"

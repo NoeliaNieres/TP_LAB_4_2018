@@ -25,6 +25,7 @@ export class UsuarioAbmComponent implements OnInit {
   public modificado: boolean;
   token: any;
   tokenPayload: any;
+  loader: boolean;
   options = {
     fieldSeparator: ';',
     quoteStrings: '"',
@@ -39,9 +40,13 @@ export class UsuarioAbmComponent implements OnInit {
   constructor(private ws: UsuarioService,private router: Router) { 
     this.arrayUsuarios = new Array<any>();
     this.data = this.arrayUsuarios;
+    this.loader = true;
   }
   
   ngOnInit() {
+    setTimeout(()=>{ 
+      this.loader = false;
+    }, 3000);
     this.buscarTodos();
     this.modificado = false;
   }
@@ -92,16 +97,18 @@ export class UsuarioAbmComponent implements OnInit {
             })
             .catch( error => { console.log(error); });
         }
+        if ('admin' === this.tokenPayload.data.rol)
+        {
+          this.ws.traerPersonas('/usuario/').then( 
+            data => { 
+              this.arrayUsuarios = data; 
+            }).catch( 
+              error => {
+                 console.log(error); 
+          });
+      }
 
-    } else {
-        this.ws.traerPersonas('/usuario/').then( 
-          data => { 
-            this.arrayUsuarios = data; 
-          }).catch( 
-            error => {
-               console.log(error); 
-        });
-    }
+    } 
 
 }
 

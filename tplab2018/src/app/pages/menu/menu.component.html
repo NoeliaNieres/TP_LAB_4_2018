@@ -29,8 +29,7 @@
         <li><a routerLink="/inicio" routerLinkActive="active">Inicio</a></li>
         <li><a routerLink="/usuarios" routerLinkActive="active">Usuarios</a></li>
         <li><a routerLink="/vehiculos" routerLinkActive="active">Vehiculos</a></li>
-        <li><a routerLink="/viajes" routerLinkActive="active">Viajes</a></li>
-        <li><a routerLink="/md-viajes" routerLinkActive="active">Modificar viajes</a></li>
+        <li><a routerLink="/todo-v" routerLinkActive="active">Listado Viajes</a></li>
         <li><a routerLink="/encuesta" routerLinkActive="active">Encuesta</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -43,7 +42,7 @@
       <div class="container-fluid">
         <ul class="nav navbar-nav">
           <li><a routerLink="/inicio" routerLinkActive="active">Inicio</a></li>
-          <li><a routerLink="/usuarios" routerLinkActive="active">Usuarios</a></li>
+          <li><a routerLink="/pagar" routerLinkActive="active">Pagar viajes</a></li>
           <li><a routerLink="/pagos" routerLinkActive="active">Pagos</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
@@ -58,6 +57,7 @@
             <li><a routerLink="/inicio" routerLinkActive="active">Inicio</a></li>
             <li><a routerLink="/viajes" routerLinkActive="active">Viajes</a></li>
             <li><a routerLink="/md-viajes" routerLinkActive="active">Modificar viajes</a></li>
+            <li><a routerLink="/viajes-cli" routerLinkActive="active">Historial de viajes</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a [routerLink]="[]" (click)="Salir()" routerLinkActive="active">Cerrar sesión</a></li>

@@ -22,13 +22,18 @@ export class VehiculosComponent implements OnInit {
     datosMostrar: any = {};
     public modificado: boolean;
     public enviado: boolean;
+    loader: boolean;
 
     constructor(private ws: UsuarioService) {
         this.arrayVehiculos = new Array<any>();
         this.arrayRemos = new Array<any>();
+        this.loader = true;
     }
 
     ngOnInit() {
+      setTimeout(()=>{ 
+        this.loader = false;
+      }, 3000);
       this.buscarTodos();
       this.remiseros();
       this.modificado = false;

@@ -1,5 +1,13 @@
-<div id="fondo">
-<div *ngIf="Comprobar()===2">
+<div *ngIf="loader" class="LockOn"><!-- SPINNER -->
+  
+  <div  class="parent">
+    
+    <div id="loader"></div><br>
+
+  </div>
+
+</div><!-- FIN SPINNER -->
+<div *ngIf="Comprobar()===4">
 <div class="encuesta">
   <div class="form-group">
       <form *ngIf="!encuestaCargada"  (ngSubmit)="cargarEncuesta()" class="form-horizontal" #formTurno="ngForm" ngNativeValidate>
@@ -81,7 +89,54 @@
 </div>
 <!--*****************ADMINISTRADOR********************************** -->
 <br><br>
+<div id="fondo">
 <div *ngIf="Comprobar()===1">
+    <div class="row">
+        <div class="col-sm-6">
+          <h1> GRAFICO 1 RADAR</h1>
+    <div style="display: block">
+      <canvas baseChart
+              [datasets]="radarChartData"
+              [labels]="radarChartLabels"
+              [chartType]="radarChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
+        </div>
+        <div class="col-sm-6">
+          <h1> FOTOS DE LAS ENCUESTAS</h1>
+          <div style="display: block">
+              <p-galleria [images]="images" panelWidth="600" panelHeight="313" [showCaption]="false"></p-galleria> 
+    </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-6">
+      <h1> GRAFICO 3 AREA POLAR</h1>
+      <div style="display: block">
+        <canvas baseChart
+                [data]="polarAreaChartData"
+                [labels]="polarAreaChartLabels"
+                [legend]="polarAreaLegend"
+                [chartType]="polarAreaChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
+          </div>
+          <div class="col-sm-6">
+      <h1> GRAFICO 4 ROSQUILLA</h1>
+      <div style="display: block">
+        <canvas baseChart
+                    [data]="doughnutChartData"
+                    [labels]="doughnutChartLabels"
+                    [chartType]="doughnutChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+      </div>
+          </div>
+        </div>
+</div>
+<div *ngIf="Comprobar()===2">
     <div class="row">
         <div class="col-sm-6">
           <h1> GRAFICO 1 RADAR</h1>

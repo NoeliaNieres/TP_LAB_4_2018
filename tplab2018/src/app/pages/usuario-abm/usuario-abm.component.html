@@ -1,6 +1,15 @@
 <br><br><br><br>
-<angular2csv [data]="data" filename="listadoUsuarios" [options]="options"></angular2csv>
-<div class="inner"><button (click)="desPdf()">Descargar PDF</button></div>
+<div *ngIf="loader" class="LockOn"><!-- SPINNER -->
+  
+    <div  class="parent">
+      
+      <div id="loader"></div><br>
+  
+    </div>
+  
+  </div><!-- FIN SPINNER -->
+<angular2csv [data]="data" class="button button5" filename="listadoUsuarios" [options]="options"></angular2csv>
+<div class="inner"><button class="button button5" (click)="desPdf()">Descargar PDF</button></div>
 <div id="outer">
       <div class="inner"><button (click)="verLista= !verLista" class="form-btn">Nuevo Usuario</button></div>
       <div class="inner"><button class="login100-form-btn" (click)="modal.open()">Ver Lista</button></div>
@@ -64,7 +73,7 @@
               <tr style="background-color: #bd59d4;">
                 <th>Nombre</th>
                 <th>Mail</th>
-                <th>rol</th>
+                <th>Rol</th>
                 <th>Borrar</th>
                 <th>Modificar</th>
             </tr>
@@ -145,22 +154,3 @@
 </div>
 </div>
 </div>
-<script>
-    var animateButton = function(e) {
-
-e.preventDefault;
-//reset animation
-e.target.classList.remove('animate');
-
-e.target.classList.add('animate');
-setTimeout(function(){
-  e.target.classList.remove('animate');
-},700);
-};
-
-var bubblyButtons = document.getElementsByClassName("bubbly-button");
-
-for (var i = 0; i < bubblyButtons.length; i++) {
-bubblyButtons[i].addEventListener('click', animateButton, false);
-}
-</script>

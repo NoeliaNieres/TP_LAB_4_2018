@@ -1,0 +1,94 @@
+<div *ngIf="loader" class="LockOn"><!-- SPINNER -->
+  
+  <div  class="parent">
+    
+    <div id="loader"></div><br>
+
+  </div>
+
+</div><!-- FIN SPINNER -->
+<br><br><br>
+<div class="row">
+    <div class="col-75">
+        <div class="container">
+            <form *ngIf="mostrarPagar"  (ngSubmit)="pagarViaje()"  class=""  #formPagos="ngForm" ngNativeValidate>
+              <div class="col-50">
+                <h3>Mercado Pago</h3>
+                <label for="fname">Aceptamos tarjetas</label>
+                <div class="icon-container">
+                  <i class="fa fa-cc-visa" style="color:navy;"></i>
+                  <i class="fa fa-cc-amex" style="color:blue;"></i>
+                  <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                  <i class="fa fa-cc-discover" style="color:orange;"></i>
+                </div>
+                <div class="form-group">
+                    <label for="cname">Fecha de viaje</label>
+                    <input type="text" class="form-control bg-success" [(ngModel)]="viaje" name="viajes"/>
+                </div>
+                  <div class="form-group">
+                      <label for="ccnum">Total</label>
+                      <input type="text" class="form-control" [(ngModel)]="pago.cantidad" name="cantidad" readonly/>
+                  </div>
+                  <div class="form-control">
+                    <label for="expyear">Metodo de Pago:</label>
+                      <select class="bootstrap-select" [(ngModel)]="pago.metodo" (change)="verificarMetodo(pago.metodo)"[ngModelOptions]="{standalone: true}" required>
+                          <option value="-1">Seleccione modo de pago...</option>
+                          <option value="0">Efectivo</option>
+                          <option value="1">Débito</option>
+                          <option value="2">Crédito</option>
+                      </select>
+                    </div>
+               
+            
+              </div>
+              <br>
+              <div class="form-group" *ngIf="mostrarCuentaCorriente" >
+                  <input type="text" class="form-control" [(ngModel)]="pago.cuenta" name="cuenta" placeholder="Cuenta Corriente" required>
+              </div>
+              <br>
+              <div class="form-group">
+                  <button type="submit" name="pagar" class="btn bg-primary" >Pagar</button>
+              </div>
+          </form>
+        </div>
+</div>
+<div class="container" >
+<div class="row text-uppercase">
+    <div class="col-md-12 bg-secondary rounded">
+ 
+        <div class="col-md-12" style="background:white">
+        <div class="table-responsive">
+          <table id="mytable" class="table table-bordred table-hover " >
+          
+            <tr>
+                <th>Fecha</th>
+                <th>Duracion</th>
+                <th>Distancia</th>
+                <th>Pago</th>
+                <th>Realizar Pago</th>
+                <th>Cancelar</th>
+            </tr>
+            <tr>
+                <td colspan="6"><div *ngIf="mostrarLoader" class="loader"></div></td>
+            </tr>
+            <tr  *ngFor="let viaje of arrayViajes">
+                <td>{{viaje.fechayhora}}</td>
+                <td>{{viaje.duracion}}</td>
+                <td>{{viaje.distancia}}</td>
+
+                <td>
+                    <span *ngIf="viaje.tipo_pago==0">Efectivo</span>
+                    <span *ngIf="viaje.tipo_pago==1">Débito</span>
+                    <span *ngIf="viaje.tipo_pago==2">Crédito</span>
+                </td>
+                <td >
+                    <input type="button" class="btn btn-default btn-auth" id="btnCerrar_+'viaje.id'" (click)="cerrarViaje(viaje)" value="Pagar">
+                </td>
+                <td>
+                    <input type="button" class="btn btn-default btn-auth" name="btnCancelar_+'viaje.id'" (click)="cancelarViaje(viaje)" value="Cancelar" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>

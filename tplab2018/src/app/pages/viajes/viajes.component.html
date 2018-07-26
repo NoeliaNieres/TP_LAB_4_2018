@@ -20,16 +20,26 @@
 
             <div #directionsList id="directionsList" class="collapsible-header blue darken-2" (click)="getDataForTable($event)" ></div>
 
-            <label for="metodoPago">Metodo de Pago:</label>
+             <!--<label for="metodoPago">Metodo de Pago:</label>
             <select id="soflow-color" [(ngModel)]="metodoPago" [ngModelOptions]="{standalone: true}" required>
                 <option [ngValue]="undefined" selected>Seleccione modo de pago...</option>
                 <option value="0">Efectivo</option>
                 <option value="1">Débito</option>
-                <option value="2">Crédito</option>
-            </select>
+                <option value="2">Crédito</option>-->
+            <!--  <p-calendar  [(ngModel)]="date2" name="date2" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+            </select> -->
+            <div class="form-control">
+                    <label for="metodoPago">Metodo de Pago:</label>
+                    <select class="bootstrap-select" [(ngModel)]="metodoPago" [ngModelOptions]="{standalone: true}" required>
+                        <option value="-1">Seleccione modo de pago...</option>
+                        <option value="0">Efectivo</option>
+                        <option value="1">Débito</option>
+                        <option value="2">Crédito</option>
+                    </select>
+                </div>
             <br>
             <label for="fechaViaje">Fecha:</label>
-            <p-calendar  [(ngModel)]="date2" name="date2" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+            <p-calendar  name="date2" [(ngModel)]="date2" [showIcon]="true" [disabledDates]="invalidDates" [locale]="es" dateFormat="dd/mm/yy" [minDate]="dateTime" showTime="true" hourFormat="24" showButtonBar="true" (onSelect)="onSelect($event)" required></p-calendar>
             <br><br>
             <div class="form-control">
                 <input type="radio" name="nivel" [(ngModel)]="nivel" (click)="nivel='0'" value="0">Standard
