@@ -41,6 +41,7 @@ export class ViajesComponent implements OnInit {
     private objViaje: Viaje;
     public viajeSolicitado: boolean;
     display = false;
+    loader: boolean;
     public showHide:boolean = false;
     @Input() arrayAutos: Array<any>;
 
@@ -68,19 +69,18 @@ export class ViajesComponent implements OnInit {
     fecha:string;
     ok:boolean;
     value: Date;
+    error = '';
+    correcto= '';
     @ViewChild('mainCaptcha') mainCaptcha: ElementRef
 
     public origin: any ; // its a example aleatory position
     public destination: any; // its a example aleatory position
-    constructor(
-        private router: Router,
-        private mapsAPILoader: MapsAPILoader,
-        private ngZone: NgZone,
-        private gmapsApi: GoogleMapsAPIWrapper,
-        private _elementRef: ElementRef,
-        private ws: UsuarioService,
-        private changeDetector : ChangeDetectorRef
-    ) {
+    constructor( private router: Router, private mapsAPILoader: MapsAPILoader,
+                 private ngZone: NgZone, private gmapsApi: GoogleMapsAPIWrapper,
+                 private _elementRef: ElementRef, private ws: UsuarioService,
+                 private changeDetector : ChangeDetectorRef) 
+    {
+        this.loader = true;
         const date = new Date();
         const year = date.getFullYear();
         const month = date.getMonth();
@@ -94,7 +94,9 @@ export class ViajesComponent implements OnInit {
       this.mainCaptcha.nativeElement.focus()
     }
     ngOnInit() {
-        
+        setTimeout(()=>{ 
+            this.loader = false;
+          }, 3000);
         this.objViaje = new Viaje();
         this.viajeSolicitado = false;
         // set google maps defaults
@@ -271,6 +273,8 @@ export class ViajesComponent implements OnInit {
         const newDate = new Date(dateString);
 
         this.validarCampos();
+    
+        this.loader = false;
         this.objViaje.lat_o = this.origenLat;
         this.objViaje.lng_o = this.origenLng;
         this.objViaje.lat_d = this.destinoLat;
@@ -282,10 +286,11 @@ export class ViajesComponent implements OnInit {
         this.objViaje.distancia = this.estimatedDistance;
         this.objViaje.vehiculo_id = this.vehiculo_id;
         this.objViaje.token = localStorage.getItem('token');
-
+    
         this.ws.enviarViaje(this.objViaje,'/viaje/')
         .then( data => {
             this.viajeSolicitado = true;
+            this.loader = true;
             this.router.navigateByUrl('/encuesta');
        })
        .catch( e => {
@@ -326,9 +331,11 @@ export class ViajesComponent implements OnInit {
         var string2 = this.removeSpaces((<HTMLInputElement>document.getElementById('txtInput')).value);
         if (string1 == string2){
             console.log("true");
+            this.correcto = "Captcha correcto!!";
             return true;
         }else{        
             console.log("false");
+            this.error = "Captcha incorrecto!!";
             return false;
         }
     }

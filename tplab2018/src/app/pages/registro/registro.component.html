@@ -1,5 +1,16 @@
 <br><br><br><br><br><br>
+<!--<div id="loader-wrapper" [hidden]="loader">
+  <div id="loader"></div>
+</div>-->
+<div *ngIf="loader" class="LockOn"><!-- SPINNER -->
+  
+  <div  class="parent">
+    
+    <div id="loader"></div><br>
 
+  </div>
+
+</div><!-- FIN SPINNER -->
 <div class="center-screen">
   <div class="card card-container"> 
       <form  autocomplete="off" method="POST" (ngSubmit)="submit()" #RegistroForm="ngForm" novalidate>

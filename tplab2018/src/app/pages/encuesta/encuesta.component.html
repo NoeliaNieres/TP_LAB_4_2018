@@ -1,3 +1,4 @@
+<div id="fondo">
 <div *ngIf="Comprobar()===2">
 <div class="encuesta">
   <div class="form-group">
@@ -68,6 +69,7 @@
             </ul>
         </ng-template>   
       </p-fileUpload>  
+      <h2><p [hidden]="ocultarSpinner"><i class="fa fa-spinner fa-spin"></i>Esperando que mientras procesamos sus imagenes...</p></h2>
         <button type="submit" class="btn bg-primary" name="btnEncuesta" value="encuesta">Cargar Encuesta</button>
       </form>
   </div>
@@ -78,50 +80,52 @@
 </div>
 </div>
 <!--*****************ADMINISTRADOR********************************** -->
+<br><br>
 <div *ngIf="Comprobar()===1">
-<!-- <div class="main"> 
-    <h4>
-      <span>
-        <i class="fa fa-bar-chart-o"></i></span>Estadisticas
-    </h4>
-    <div>
-      <h5>
-        <em>Clientes</em>
-      </h5>
-      <strong>¿Recomendaria la aplicacion a algún conocido?</strong>
-      <span class="pull-right">75%</span>
-      <div class="progress progress-striped active">
-        <div class="progress-bar" style="width: 75%;"></div>
-      </div>
-      <strong>¿Cómo calificas la opción del servicio en efectivo?</strong>
-      <span class="pull-right">45%</span>
-      <div class="progress progress-striped active">
-        <div class="progress-bar" style="width: 45%;"></div>
-      </div>
-      <strong>¿Por qué razón usted prefiere usar nuestro servicio en vez de taxi?</strong>
-      <span class="pull-right">10%</span>
-      <div class="progress progress-striped active">
-        <div class="progress-bar" style="width: 10%;"></div>
-      </div>
-      <strong>¿Cómo califica el tiempo de llegada del servicio a su destino?</strong>
-      <span class="pull-right">5%</span>
-      <div class="progress progress-striped active">
-        <div class="progress-bar" style="width: 5%;"></div>
-      </div>
-      <strong>¿Cómo califica la atención que brindan los conductores?</strong>
-      <span class="pull-right">60%</span>
-      <div class="progress progress-striped active">
-        <div class="progress-bar" style="width: 60%;"></div>
-      </div>
-      <strong>En promedio, ¿Cuán seguro considera el servicio en la ciudad? (Considere UNO ausencia seguridad, TRES muy seguro)</strong>
-      <span class="pull-right">20%</span>
-      <div class="progress progress-striped active">
-        <div class="progress-bar" style="width: 15%;"></div>
-      </div>
-   
+    <div class="row">
+        <div class="col-sm-6">
+          <h1> GRAFICO 1 RADAR</h1>
+    <div style="display: block">
+      <canvas baseChart
+              [datasets]="radarChartData"
+              [labels]="radarChartLabels"
+              [chartType]="radarChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
     </div>
-  </div>-->
-  <div class="col-md-5">
-    <p-galleria [images]="images" panelWidth="500" panelHeight="313" [showCaption]="false"></p-galleria> 
-   </div>
+        </div>
+        <div class="col-sm-6">
+          <h1> FOTOS DE LAS ENCUESTAS</h1>
+          <div style="display: block">
+              <p-galleria [images]="images" panelWidth="600" panelHeight="313" [showCaption]="false"></p-galleria> 
+    </div>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-6">
+      <h1> GRAFICO 3 AREA POLAR</h1>
+      <div style="display: block">
+        <canvas baseChart
+                [data]="polarAreaChartData"
+                [labels]="polarAreaChartLabels"
+                [legend]="polarAreaLegend"
+                [chartType]="polarAreaChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
+          </div>
+          <div class="col-sm-6">
+      <h1> GRAFICO 4 ROSQUILLA</h1>
+      <div style="display: block">
+        <canvas baseChart
+                    [data]="doughnutChartData"
+                    [labels]="doughnutChartLabels"
+                    [chartType]="doughnutChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+      </div>
+          </div>
+        </div>
+</div>
+<br><br><br><br>
 </div>

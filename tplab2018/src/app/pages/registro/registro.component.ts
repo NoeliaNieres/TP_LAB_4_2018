@@ -14,9 +14,16 @@ export class RegistroComponent implements OnInit {
   public model = new User(0, '', '', '', '');
   error = '';
   resuelto;
-  constructor(private ws: UsuarioService,private router: Router) { }
+  loader: boolean;
+  constructor(private ws: UsuarioService,private router: Router) {
+    this.loader = true;
+   }
 
   ngOnInit() {
+    //this.loader = false;
+   setTimeout(()=>{ 
+      this.loader = false;
+    }, 3000);
   }
   resolved(captchaResponse: string) {
     console.log(`Resolved captcha with response ${captchaResponse}:`);
@@ -39,6 +46,7 @@ export class RegistroComponent implements OnInit {
   }
 
   submit() {
+      this.loader = false;
       const registro = new User('',this.model.username,
                                 this.model.email,this.model.rol,
                                 this.model.password);

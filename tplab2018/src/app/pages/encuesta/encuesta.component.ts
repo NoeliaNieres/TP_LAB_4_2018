@@ -43,7 +43,7 @@ export class EncuestaComponent implements OnInit {
   misImagenes: any = {};
 
   constructor(private router: Router, private ws: UsuarioService) {
-
+    this.ocultarSpinner = true;
   }
 
   ngOnInit() {
@@ -52,9 +52,36 @@ export class EncuestaComponent implements OnInit {
     this.respuesta_5 = -1;
     this.cargarImagenes();
   }
+     // 1- RADAR
+     public radarChartLabels:string[] = ['Tiempo', 'Atención brindada', 'Calidad', 'Confianza', 'Gusto', 'Choferes', 'Otras'];
+     public radarChartData:any = [
+       {data: [65, 59, 90, 81, 56, 55, 40], label: 'Series A'},
+       {data: [28, 48, 40, 19, 96, 27, 100], label: 'Series B'}
+     ];
+      // 2- PIE
+     public radarChartType:string = 'radar';
+     public pieChartLabels:string[] = ['Clientes', 'Empleados', 'Encargado',"Administrador"];
+     public pieChartData:number[] = [45, 10, 62,63];
+     public pieChartType:string = 'pie';
+
+    // 3- AREA POLAR
+    public polarAreaChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales', 'Telesales', 'Corporate Sales'];
+    public polarAreaChartData:number[] = [10, 11, 14, 13, 12];
+    public polarAreaLegend:boolean = true;
+    public polarAreaChartType:string = 'polarArea';
+    // 4- ROSQUILLA
+    public doughnutChartLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+    public doughnutChartData:number[] = [350, 450, 100];
+    public doughnutChartType:string = 'doughnut';
+      //EVENTOS
+  public chartClicked(e:any):void {console.log(e);} //SOLO MUESTRA EVENTO!
+ 
+  public chartHovered(e:any):void {console.log(e);}//SOLO MUESTRA EVENTO!
+
   onSelect(event: any, pfuReference: any) {
     var modelo = this;
     pfuReference.auto = false;
+    this.ocultarSpinner = false;
     if (event.files.length >= 4) {
       console.log("error");
       setTimeout(function () {

@@ -46,6 +46,7 @@ import { DataTableModule } from 'primeng/primeng';
 import { GalleriaModule } from 'primeng/galleria';
 //DESCARGA DE ARCHIVOS 
 import { Angular2CsvModule } from 'angular2-csv';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 const appRoutes: Routes = [
   { path: 'inicio',component: InicioComponent},
@@ -100,6 +101,7 @@ const appRoutes: Routes = [
     MessageModule,
     Angular2CsvModule,
     GalleriaModule,
+    ChartsModule,
     RecaptchaModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
